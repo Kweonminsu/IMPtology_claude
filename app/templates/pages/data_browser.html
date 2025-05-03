@@ -3,7 +3,7 @@
 {% block title %}IMPtology - 데이터 브라우저{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/data_browser.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='css/data_browser.css') }}">
 {% endblock %}
 
 {% block page_title %}데이터 브라우저{% endblock %}
@@ -377,5 +377,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/data_browser.js') }}"></script>
+<script src="{{ url_for('static', path='js/data_browser.js') }}"></script>
 {% endblock %}

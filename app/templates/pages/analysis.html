@@ -3,7 +3,7 @@
 {% block title %}IMPtology - 데이터 분석{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/analysis.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='css/analysis.css') }}">
 {% endblock %}
 
 {% block page_title %}데이터 분석{% endblock %}
@@ -410,5 +410,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+<script src="{{ url_for('static', path='js/analysis.js') }}"></script>
 {% endblock %}
