@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}IMPtology - 공지사항{% endblock %}
+
+{% block content %}
+<div class="notices-page">
+    <div class="notice-header">
+        <h1>공지사항</h1>
+        {% if current_user.is_superuser %}
+        <button class="create-button" onclick="location.href='/notices/create'">새 공지 작성</button>
+        {% endif %}
+    </div>
+
+    <div class="notice-list">
+        <table class="notice-table">
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    {% if current_user.is_superuser %}
+                    <th>관리</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for notice in notices %}
+                <tr>
+                    <td><a href="/notices/{{ notice.id }}">{{ notice.title }}</a></td>
+                    <td>{{ notice.author.username }}</td>
+                    <td>{{ notice.created_at.strftime('%Y-%m-%d') }}</td>
+                    {% if current_user.is_superuser %}
+                    <td>
+                        <button class="edit-button" onclick="location.href='/notices/{{ notice.id }}/edit'">수정</button>
+                        <button class="delete-button" onclick="deleteNotice({{ notice.id }})">삭제</button>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function deleteNotice(noticeId) {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        fetch(`/api/v1/notices/${noticeId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

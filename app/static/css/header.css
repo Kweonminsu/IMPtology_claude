@@ -1,0 +1,134 @@
+.header {
+  background: #181828;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.menu-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.7rem;
+}
+.menu-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+.page-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color, #00f0ff);
+  letter-spacing: 1px;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.search-bar {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0.8rem;
+}
+.search-bar input {
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 0.4rem 0.5rem;
+  outline: none;
+  font-size: 1rem;
+  width: 150px;
+  transition: width 0.2s;
+}
+.search-bar input:focus {
+  width: 200px;
+}
+.search-button {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+.search-button svg {
+  width: 20px;
+  height: 20px;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.action-button {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.action-button:hover {
+  background: rgba(0,240,255,0.10);
+  color: var(--primary-color, #00f0ff);
+}
+.notification-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--primary-color, #00f0ff);
+  color: #181828;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle .light-icon,
+.theme-toggle .dark-icon {
+  width: 22px;
+  height: 22px;
+  display: none;
+}
+.theme-toggle.light-mode .light-icon { display: block; }
+.theme-toggle:not(.light-mode) .dark-icon { display: block; }
+@media (max-width: 600px) {
+  .header-left .page-title { font-size: 1.1rem; }
+  .search-bar input { width: 80px; }
+  .header-right { gap: 0.5rem; }
+}
