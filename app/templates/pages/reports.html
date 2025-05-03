@@ -1,469 +1,643 @@
-{% extends "base.html" %}
-
-{% block title %}IMPtology - 리포트{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', path='css/reports.css') }}">
-{% endblock %}
-
-{% block page_title %}리포트{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}IMPtology - 리포트{% endblock %} {%
+block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/reports.css') }}" />
+{% endblock %} {% block page_title %}리포트{% endblock %} {% block content %}
 <div class="reports-page">
-    <div class="reports-header">
-        <div class="header-left">
-            <div class="view-selector">
-                <button class="view-button active">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="7" height="9" rx="1"></rect>
-                        <rect x="14" y="3" width="7" height="9" rx="1"></rect>
-                        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                    </svg>
-                    그리드 뷰
-                </button>
-                <button class="view-button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="8" y1="6" x2="21" y2="6"></line>
-                        <line x1="8" y1="12" x2="21" y2="12"></line>
-                        <line x1="8" y1="18" x2="21" y2="18"></line>
-                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
-                    </svg>
-                    리스트 뷰
-                </button>
-            </div>
-            
-            <div class="reports-filter">
-                <div class="filter-item">
-                    <label>카테고리:</label>
-                    <select class="filter-select">
-                        <option>모든 카테고리</option>
-                        <option>생산 보고서</option>
-                        <option>품질 보고서</option>
-                        <option>설비 보고서</option>
-                        <option>공정 보고서</option>
-                    </select>
-                </div>
-                <div class="filter-item">
-                    <label>정렬:</label>
-                    <select class="filter-select">
-                        <option>최신순</option>
-                        <option>오래된순</option>
-                        <option>이름순</option>
-                        <option>많이 본 순</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="리포트 검색...">
-                <button class="search-button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
-            </div>
-            
-            <button class="create-report-button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                새 리포트
-            </button>
-        </div>
-    </div>
-    
-    <div class="reports-tabs">
-        <button class="reports-tab active">내 리포트</button>
-        <button class="reports-tab">공유된 리포트</button>
-        <button class="reports-tab">템플릿</button>
-        <button class="reports-tab">아카이브</button>
-    </div>
-    
-    <div class="reports-grid">
-        <div class="report-card">
-            <div class="report-preview">
-                <div class="report-thumb production">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        <path d="M10 2v4"></path>
-                        <path d="M14 2v4"></path>
-                        <path d="M10 18v4"></path>
-                        <path d="M14 18v4"></path>
-                    </svg>
-                </div>
-                <div class="report-badges">
-                    <span class="report-badge auto">자동</span>
-                    <span class="report-badge scheduled">예약됨</span>
-                </div>
-            </div>
-            <div class="report-info">
-                <h3 class="report-title">월간 생산성 분석 리포트</h3>
-                <div class="report-meta">
-                    <span class="report-date">최종 업데이트: 2025년 5월 1일</span>
-                    <span class="report-views">42회 조회</span>
-                </div>
-                <div class="report-description">
-                    생산 라인별 월간 생산성 지표와 목표 달성률을 요약한 보고서입니다.
-                </div>
-            </div>
-            <div class="report-actions">
-                <button class="action-button view">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    보기
-                </button>
-                <button class="action-button share">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                    </svg>
-                    공유
-                </button>
-                <button class="action-button more">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="19" cy="12" r="1"></circle>
-                        <circle cx="5" cy="12" r="1"></circle>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
-        <div class="report-card">
-            <div class="report-preview">
-                <div class="report-thumb quality">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                        <path d="M2 17l10 5 10-5"></path>
-                        <path d="M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
-                <div class="report-badges">
-                    <span class="report-badge manual">수동</span>
-                </div>
-            </div>
-            <div class="report-info">
-                <h3 class="report-title">품질 이슈 상세 분석</h3>
-                <div class="report-meta">
-                    <span class="report-date">최종 업데이트: 2025년 4월 28일</span>
-                    <span class="report-views">37회 조회</span>
-                </div>
-                <div class="report-description">
-                    B12 제품 불량률 증가에 대한 심층 분석과 개선 방안을 제시한 보고서입니다.
-                </div>
-            </div>
-            <div class="report-actions">
-                <button class="action-button view">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    보기
-                </button>
-                <button class="action-button share">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                    </svg>
-                    공유
-                </button>
-                <button class="action-button more">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="19" cy="12" r="1"></circle>
-                        <circle cx="5" cy="12" r="1"></circle>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
-        <div class="report-card">
-            <div class="report-preview">
-                <div class="report-thumb equipment">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                    </svg>
-                </div>
-                <div class="report-badges">
-                    <span class="report-badge auto">자동</span>
-                </div>
-            </div>
-            <div class="report-info">
-                <h3 class="report-title">설비 유지보수 예측 분석</h3>
-                <div class="report-meta">
-                    <span class="report-date">최종 업데이트: 2025년 4월 30일</span>
-                    <span class="report-views">28회 조회</span>
-                </div>
-                <div class="report-description">
-                    주요 설비의 예측 유지보수 일정과 부품 교체 필요성을 분석한 보고서입니다.
-                </div>
-            </div>
-            <div class="report-actions">
-                <button class="action-button view">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    보기
-                </button>
-                <button class="action-button share">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                    </svg>
-                    공유
-                </button>
-                <button class="action-button more">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="19" cy="12" r="1"></circle>
-                        <circle cx="5" cy="12" r="1"></circle>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
-        <div class="report-card">
-            <div class="report-preview">
-                <div class="report-thumb process">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                    </svg>
-                </div>
-                <div class="report-badges">
-                    <span class="report-badge auto">자동</span>
-                    <span class="report-badge shared">공유됨</span>
-                </div>
-            </div>
-            <div class="report-info">
-                <h3 class="report-title">공정 최적화 결과 분석</h3>
-                <div class="report-meta">
-                    <span class="report-date">최종 업데이트: 2025년 4월 25일</span>
-                    <span class="report-views">63회 조회</span>
-                </div>
-                <div class="report-description">
-                    C9 공정 최적화 조치 후 효율성 향상 결과를 수치화한 보고서입니다.
-                </div>
-            </div>
-            <div class="report-actions">
-                <button class="action-button view">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    보기
-                </button>
-                <button class="action-button share">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                    </svg>
-                    공유
-                </button>
-                <button class="action-button more">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="19" cy="12" r="1"></circle>
-                        <circle cx="5" cy="12" r="1"></circle>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        
-        <div class="report-card new-report">
-            <div class="new-report-content">
-                <div class="new-report-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                </div>
-                <h3 class="new-report-text">새 리포트 만들기</h3>
-            </div>
-        </div>
-    </div>
-    
-    <div class="template-section">
-        <h2 class="section-title">추천 템플릿</h2>
-        <div class="template-slider">
-            <div class="template-card">
-                <div class="template-preview production">
-                    <div class="template-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            <path d="M10 2v4"></path>
-                            <path d="M14 2v4"></path>
-                            <path d="M10 18v4"></path>
-                            <path d="M14 18v4"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <h3 class="template-title">생산 대시보드</h3>
-                    <p class="template-desc">종합 생산 지표를 한눈에 파악할 수 있는 템플릿</p>
-                </div>
-                <button class="template-use-btn">사용하기</button>
-            </div>
-            
-            <div class="template-card">
-                <div class="template-preview quality">
-                    <div class="template-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5"></path>
-                            <path d="M2 12l10 5 10-5"></path>
-                        </svg>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <h3 class="template-title">품질 분석 리포트</h3>
-                    <p class="template-desc">품질 지표와 이슈 트래킹을 위한 템플릿</p>
-                </div>
-                <button class="template-use-btn">사용하기</button>
-            </div>
-            
-            <div class="template-card">
-                <div class="template-preview equipment">
-                    <div class="template-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <h3 class="template-title">설비 상태 보고서</h3>
-                    <p class="template-desc">설비 상태 및 유지보수 계획을 위한 템플릿</p>
-                </div>
-                <button class="template-use-btn">사용하기</button>
-            </div>
-            
-            <div class="template-card">
-                <div class="template-preview process">
-                    <div class="template-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
-                    </div>
-                </div>
-                <div class="template-info">
-                    <h3 class="template-title">공정 효율성 분석</h3>
-                    <p class="template-desc">공정별 효율성 및 개선점 분석을 위한 템플릿</p>
-                </div>
-                <button class="template-use-btn">사용하기</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="schedule-section">
-        <h2 class="section-title">예약된 리포트</h2>
-        <div class="schedule-table-container">
-            <table class="schedule-table">
-                <thead>
-                    <tr>
-                        <th>리포트 이름</th>
-                        <th>빈도</th>
-                        <th>다음 생성</th>
-                        <th>수신자</th>
-                        <th>상태</th>
-                        <th>작업</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>월간 생산성 분석 리포트</td>
-                        <td>매월 1일</td>
-                        <td>2025년 6월 1일</td>
-                        <td>5명</td>
-                        <td><span class="status active">활성</span></td>
-                        <td>
-                            <button class="table-action edit">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                            </button>
-                            <button class="table-action delete">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>주간 품질 모니터링</td>
-                        <td>매주 월요일</td>
-                        <td>2025년 5월 5일</td>
-                        <td>3명</td>
-                        <td><span class="status active">활성</span></td>
-                        <td>
-                            <button class="table-action edit">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                            </button>
-                            <button class="table-action delete">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>설비 유지보수 예측 분석</td>
-                        <td>매일</td>
-                        <td>2025년 5월 3일</td>
-                        <td>2명</td>
-                        <td><span class="status active">활성</span></td>
-                        <td>
-                            <button class="table-action edit">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                            </button>
-                            <button class="table-action delete">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-{% endblock %}
+  <div class="reports-header">
+    <div class="header-left">
+      <div class="view-selector">
+        <button class="view-button active">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="3" y="3" width="7" height="9" rx="1"></rect>
+            <rect x="14" y="3" width="7" height="9" rx="1"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+          </svg>
+          그리드 뷰
+        </button>
+        <button class="view-button">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          리스트 뷰
+        </button>
+      </div>
 
-{% block extra_js %}
+      <div class="reports-filter">
+        <div class="filter-item">
+          <label>카테고리:</label>
+          <select class="filter-select">
+            <option>모든 카테고리</option>
+            <option>생산 보고서</option>
+            <option>품질 보고서</option>
+            <option>설비 보고서</option>
+            <option>공정 보고서</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>정렬:</label>
+          <select class="filter-select">
+            <option>최신순</option>
+            <option>오래된순</option>
+            <option>이름순</option>
+            <option>많이 본 순</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="search-bar">
+        <input type="text" placeholder="리포트 검색..." />
+        <button class="search-button">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+
+      <button class="create-report-button">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        새 리포트
+      </button>
+    </div>
+  </div>
+
+  <div class="reports-tabs">
+    <button class="reports-tab active">내 리포트</button>
+    <button class="reports-tab">공유된 리포트</button>
+    <button class="reports-tab">템플릿</button>
+    <button class="reports-tab">아카이브</button>
+  </div>
+
+  <div class="reports-grid">
+    <div class="report-card">
+      <div class="report-preview">
+        <div class="report-thumb production">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+            ></path>
+            <path d="M10 2v4"></path>
+            <path d="M14 2v4"></path>
+            <path d="M10 18v4"></path>
+            <path d="M14 18v4"></path>
+          </svg>
+        </div>
+        <div class="report-badges">
+          <span class="report-badge auto">자동</span>
+          <span class="report-badge scheduled">예약됨</span>
+        </div>
+      </div>
+      <div class="report-info">
+        <h3 class="report-title">월간 생산성 분석 리포트</h3>
+        <div class="report-meta">
+          <span class="report-date">최종 업데이트: 2025년 5월 1일</span>
+          <span class="report-views">42회 조회</span>
+        </div>
+        <div class="report-description">
+          생산 라인별 월간 생산성 지표와 목표 달성률을 요약한 보고서입니다.
+        </div>
+      </div>
+      <div class="report-actions">
+        <button class="action-button view">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          보기
+        </button>
+        <button class="action-button share">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          공유
+        </button>
+        <button class="action-button more">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="19" cy="12" r="1"></circle>
+            <circle cx="5" cy="12" r="1"></circle>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="report-preview">
+        <div class="report-thumb quality">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="report-badges">
+          <span class="report-badge manual">수동</span>
+        </div>
+      </div>
+      <div class="report-info">
+        <h3 class="report-title">품질 이슈 상세 분석</h3>
+        <div class="report-meta">
+          <span class="report-date">최종 업데이트: 2025년 4월 28일</span>
+          <span class="report-views">37회 조회</span>
+        </div>
+        <div class="report-description">
+          B12 제품 불량률 증가에 대한 심층 분석과 개선 방안을 제시한
+          보고서입니다.
+        </div>
+      </div>
+      <div class="report-actions">
+        <button class="action-button view">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          보기
+        </button>
+        <button class="action-button share">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          공유
+        </button>
+        <button class="action-button more">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="19" cy="12" r="1"></circle>
+            <circle cx="5" cy="12" r="1"></circle>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="report-preview">
+        <div class="report-thumb equipment">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+        </div>
+        <div class="report-badges">
+          <span class="report-badge auto">자동</span>
+        </div>
+      </div>
+      <div class="report-info">
+        <h3 class="report-title">설비 유지보수 예측 분석</h3>
+        <div class="report-meta">
+          <span class="report-date">최종 업데이트: 2025년 4월 30일</span>
+          <span class="report-views">28회 조회</span>
+        </div>
+        <div class="report-description">
+          주요 설비의 예측 유지보수 일정과 부품 교체 필요성을 분석한
+          보고서입니다.
+        </div>
+      </div>
+      <div class="report-actions">
+        <button class="action-button view">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          보기
+        </button>
+        <button class="action-button share">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          공유
+        </button>
+        <button class="action-button more">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="19" cy="12" r="1"></circle>
+            <circle cx="5" cy="12" r="1"></circle>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="report-card">
+      <div class="report-preview">
+        <div class="report-thumb process">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+        </div>
+        <div class="report-badges">
+          <span class="report-badge auto">자동</span>
+          <span class="report-badge shared">공유됨</span>
+        </div>
+      </div>
+      <div class="report-info">
+        <h3 class="report-title">공정 최적화 결과 분석</h3>
+        <div class="report-meta">
+          <span class="report-date">최종 업데이트: 2025년 4월 25일</span>
+          <span class="report-views">63회 조회</span>
+        </div>
+        <div class="report-description">
+          C9 공정 최적화 조치 후 효율성 향상 결과를 수치화한 보고서입니다.
+        </div>
+      </div>
+      <div class="report-actions">
+        <button class="action-button view">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          보기
+        </button>
+        <button class="action-button share">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          공유
+        </button>
+        <button class="action-button more">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="1"></circle>
+            <circle cx="19" cy="12" r="1"></circle>
+            <circle cx="5" cy="12" r="1"></circle>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="report-card new-report">
+      <div class="new-report-content">
+        <div class="new-report-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+        <h3 class="new-report-text">새 리포트 만들기</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="template-section">
+    <h2 class="section-title">추천 템플릿</h2>
+    <div class="template-slider">
+      <div class="template-card">
+        <div class="template-preview production">
+          <div class="template-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              ></path>
+              <path d="M10 2v4"></path>
+              <path d="M14 2v4"></path>
+              <path d="M10 18v4"></path>
+              <path d="M14 18v4"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="template-info">
+          <h3 class="template-title">생산 대시보드</h3>
+          <p class="template-desc">
+            종합 생산 지표를 한눈에 파악할 수 있는 템플릿
+          </p>
+        </div>
+        <button class="template-use-btn">사용하기</button>
+      </div>
+
+      <div class="template-card">
+        <div class="template-preview quality">
+          <div class="template-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="template-info">
+          <h3 class="template-title">품질 분석 리포트</h3>
+          <p class="template-desc">품질 지표와 이슈 트래킹을 위한 템플릿</p>
+        </div>
+        <button class="template-use-btn">사용하기</button>
+      </div>
+
+      <div class="template-card">
+        <div class="template-preview equipment">
+          <div class="template-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="template-info">
+          <h3 class="template-title">설비 상태 보고서</h3>
+          <p class="template-desc">설비 상태 및 유지보수 계획을 위한 템플릿</p>
+        </div>
+        <button class="template-use-btn">사용하기</button>
+      </div>
+
+      <div class="template-card">
+        <div class="template-preview process">
+          <div class="template-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="template-info">
+          <h3 class="template-title">공정 효율성 분석</h3>
+          <p class="template-desc">
+            공정별 효율성 및 개선점 분석을 위한 템플릿
+          </p>
+        </div>
+        <button class="template-use-btn">사용하기</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="schedule-section">
+    <h2 class="section-title">예약된 리포트</h2>
+    <div class="schedule-table-container">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>리포트 이름</th>
+            <th>빈도</th>
+            <th>다음 생성</th>
+            <th>수신자</th>
+            <th>상태</th>
+            <th>작업</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>월간 생산성 분석 리포트</td>
+            <td>매월 1일</td>
+            <td>2025년 6월 1일</td>
+            <td>5명</td>
+            <td><span class="status active">활성</span></td>
+            <td>
+              <button class="table-action edit">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  ></path>
+                  <path
+                    d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                  ></path>
+                </svg>
+              </button>
+              <button class="table-action delete">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path
+                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>주간 품질 모니터링</td>
+            <td>매주 월요일</td>
+            <td>2025년 5월 5일</td>
+            <td>3명</td>
+            <td><span class="status active">활성</span></td>
+            <td>
+              <button class="table-action edit">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  ></path>
+                  <path
+                    d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                  ></path>
+                </svg>
+              </button>
+              <button class="table-action delete">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path
+                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>설비 유지보수 예측 분석</td>
+            <td>매일</td>
+            <td>2025년 5월 3일</td>
+            <td>2명</td>
+            <td><span class="status active">활성</span></td>
+            <td>
+              <button class="table-action edit">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  ></path>
+                  <path
+                    d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                  ></path>
+                </svg>
+              </button>
+              <button class="table-action delete">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path
+                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                  ></path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
 <script src="{{ url_for('static', path='js/reports.js') }}"></script>
 {% endblock %}

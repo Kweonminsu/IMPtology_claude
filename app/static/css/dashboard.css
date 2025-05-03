@@ -87,7 +87,8 @@
   display: flex;
   align-items: center;
   box-shadow: var(--shadow);
-  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
   border: 1px solid rgba(255, 255, 255, 0.05);
   animation: slideInUp 0.5s ease forwards;
   opacity: 0;
@@ -279,7 +280,8 @@
   height: 2px;
   width: 100%;
   left: 0;
-  background: linear-gradient(90deg,
+  background: linear-gradient(
+    90deg,
     rgba(0, 240, 255, 0.1),
     rgba(0, 240, 255, 0.7),
     rgba(0, 240, 255, 0.1)
@@ -398,7 +400,11 @@
 
 .node-connections .connection-line {
   position: absolute;
-  background: linear-gradient(to right, var(--primary-color), rgba(0, 240, 255, 0.2));
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    rgba(0, 240, 255, 0.2)
+  );
   height: 2px;
   transform-origin: left center;
   z-index: 1;

@@ -1,6 +1,6 @@
 .header {
   background: #181828;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   position: sticky;
   top: 0;
   width: 100%;
@@ -39,7 +39,7 @@
   gap: 1.2rem;
 }
 .search-bar {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
   transition: background 0.2s;
 }
 .action-button:hover {
-  background: rgba(0,240,255,0.10);
+  background: rgba(0, 240, 255, 0.1);
   color: var(--primary-color, #00f0ff);
 }
 .notification-badge {
@@ -125,10 +125,20 @@
   height: 22px;
   display: none;
 }
-.theme-toggle.light-mode .light-icon { display: block; }
-.theme-toggle:not(.light-mode) .dark-icon { display: block; }
+.theme-toggle.light-mode .light-icon {
+  display: block;
+}
+.theme-toggle:not(.light-mode) .dark-icon {
+  display: block;
+}
 @media (max-width: 600px) {
-  .header-left .page-title { font-size: 1.1rem; }
-  .search-bar input { width: 80px; }
-  .header-right { gap: 0.5rem; }
+  .header-left .page-title {
+    font-size: 1.1rem;
+  }
+  .search-bar input {
+    width: 80px;
+  }
+  .header-right {
+    gap: 0.5rem;
+  }
 }

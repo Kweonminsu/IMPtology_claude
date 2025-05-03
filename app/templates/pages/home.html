@@ -1,89 +1,125 @@
-{% extends "base.html" %}
-
-{% block title %}IMPtology - 데이터 온톨로지 기반 의사결정 플랫폼{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}IMPtology - 데이터 온톨로지 기반
+의사결정 플랫폼{% endblock %} {% block content %}
 <div class="home-container">
-    <!-- 인트로 섹션 -->
-<section class="intro-section">
-        <div class="intro-content">
-            <h1 class="main-title">당신의 감(感)에<br><span class="highlight">근거(根據)를 더하세요</span></h1>
-            <p class="main-subtitle">데이터 온톨로지 기반 의사결정 플랫폼</p>
-            <div class="intro-stats">
-                <div class="stat-item">
-                    <span class="stat-value">30%</span>
-                    <span class="stat-label">생산성 향상</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value">15%</span>
-                    <span class="stat-label">불량률 감소</span>
-                </div>
-            </div>
-            <a href="/data-browser" class="cta-button">시작하기</a></div>
+  <!-- 통합된 인트로+특징 섹션 -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="main-title">
+        당신의 감(感)에<br /><span class="highlight"
+          >근거(根據)를 더하세요</span
+        >
+      </h1>
+      <p class="main-subtitle">데이터 온톨로지 기반 의사결정 플랫폼</p>
 
-    <div class="particle" style="width: 4.77393px; height: 4.77393px; left: 52.43%; top: 52.6681%; opacity: 0.403727; animation-delay: 2.19966s;"></div><div class="particle" style="width: 4.08793px; height: 4.08793px; left: 34.7434%; top: 77.777%; opacity: 0.470119; animation-delay: 2.45767s;"></div><div class="particle" style="width: 3.88142px; height: 3.88142px; left: 39.5148%; top: 67.6693%; opacity: 0.547637; animation-delay: 0.518405s;"></div><div class="particle" style="width: 3.48769px; height: 3.48769px; left: 46.0606%; top: 99.3334%; opacity: 0.304295; animation-delay: 1.95345s;"></div><div class="particle" style="width: 2.86508px; height: 2.86508px; left: 60.65%; top: 79.8961%; opacity: 0.115472; animation-delay: 3.80808s;"></div><div class="particle" style="width: 4.33011px; height: 4.33011px; left: 81.4873%; top: 84.0267%; opacity: 0.564918; animation-delay: 2.07544s;"></div><div class="particle" style="width: 3.21482px; height: 3.21482px; left: 70.079%; top: 80.8214%; opacity: 0.338921; animation-delay: 1.68582s;"></div><div class="particle" style="width: 4.23265px; height: 4.23265px; left: 53.4848%; top: 96.5054%; opacity: 0.237122; animation-delay: 3.27117s;"></div><div class="particle" style="width: 4.11291px; height: 4.11291px; left: 56.1247%; top: 76.1686%; opacity: 0.260977; animation-delay: 0.922753s;"></div><div class="particle" style="width: 3.76157px; height: 3.76157px; left: 35.9889%; top: 74.0366%; opacity: 0.105207; animation-delay: 4.92812s;"></div><div class="particle" style="width: 2.08825px; height: 2.08825px; left: 59.0158%; top: 12.8644%; opacity: 0.285175; animation-delay: 1.17533s;"></div><div class="particle" style="width: 2.40509px; height: 2.40509px; left: 59.7922%; top: 36.2258%; opacity: 0.213915; animation-delay: 2.8003s;"></div><div class="particle" style="width: 4.28513px; height: 4.28513px; left: 56.1606%; top: 71.8129%; opacity: 0.565816; animation-delay: 0.465413s;"></div><div class="particle" style="width: 3.3807px; height: 3.3807px; left: 64.2181%; top: 95.2681%; opacity: 0.240035; animation-delay: 4.64925s;"></div><div class="particle" style="width: 4.74416px; height: 4.74416px; left: 95.6861%; top: 96.5322%; opacity: 0.181797; animation-delay: 4.33257s;"></div><div class="particle" style="width: 4.40139px; height: 4.40139px; left: 56.8904%; top: 15.8489%; opacity: 0.372117; animation-delay: 4.15683s;"></div><div class="particle" style="width: 3.52202px; height: 3.52202px; left: 5.81989%; top: 51.4326%; opacity: 0.20754; animation-delay: 0.262977s;"></div><div class="particle" style="width: 2.08399px; height: 2.08399px; left: 1.69575%; top: 24.918%; opacity: 0.166489; animation-delay: 4.47229s;"></div><div class="particle" style="width: 2.17014px; height: 2.17014px; left: 26.8043%; top: 81.4448%; opacity: 0.524246; animation-delay: 1.94078s;"></div><div class="particle" style="width: 3.66766px; height: 3.66766px; left: 1.28541%; top: 76.8617%; opacity: 0.233668; animation-delay: 1.75522s;"></div></section>
-
-    <!-- 특징 섹션 -->
-    <section class="features-section">
-        <h2 class="section-title">IMPtology가 제공하는 가치</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon data-icon"></div>
-                <h3>데이터 통합</h3>
-                <p>분리된 생산 데이터를 유기적으로 연결하여 새로운 인사이트를 발견합니다.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon insight-icon"></div>
-                <h3>실시간 의사결정</h3>
-                <p>경험과 감각이 아닌, 데이터 기반의 과학적 의사결정으로 생산 현장을 혁신합니다.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon productivity-icon"></div>
-                <h3>생산성 극대화</h3>
-                <p>데이터 기반 의사결정으로 생산성과 품질을 동시에 향상시킵니다.</p>
-            </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon data-icon"></div>
+          <h3>데이터 통합</h3>
+          <p>
+            분리된 생산 데이터를 유기적으로 연결하여 새로운 인사이트를
+            발견합니다.
+          </p>
         </div>
-    </section>
-
-    <!-- 비전 섹션 -->
-    <section class="vision-section">
-        <div class="vision-content">
-            <h2 class="section-title">우리의 목표</h2>
-            <div class="vision-text">
-                <p>IMPtology는 산업 현장의 모든 데이터를 서로 연결하여 유의미한 관계를 발견합니다. 이를 통해 숨겨진 패턴을 찾아내고, 실시간으로 의사결정을 지원합니다.</p>
-                <p>분산된 데이터를 통합하고, 다양한 데이터 간의 상관관계를 분석하여 생산성 향상과 불량률 감소에 기여합니다.</p>
-                <p>IMPtology와 함께 데이터 기반의 미래 산업 현장을 만들어가세요.</p>
-            </div>
+        <div class="feature-card">
+          <div class="feature-icon insight-icon"></div>
+          <h3>실시간 의사결정</h3>
+          <p>
+            경험과 감각이 아닌, 데이터 기반의 과학적 의사결정으로 생산 현장을
+            혁신합니다.
+          </p>
         </div>
-        <div class="vision-visual">
-            <div class="chart-container">
-                <div class="chart-line"></div>
-                <div class="chart-bars">
-                    <div class="chart-bar"></div>
-                    <div class="chart-bar"></div>
-                    <div class="chart-bar"></div>
-                    <div class="chart-bar"></div>
-                </div>
-            </div>
+        <div class="feature-card">
+          <div class="feature-icon productivity-icon"></div>
+          <h3>생산성 극대화</h3>
+          <p>데이터 기반 의사결정으로 생산성과 품질을 동시에 향상시킵니다.</p>
         </div>
-    </section>
+      </div>
 
-    <!-- 콜투액션 섹션 -->
-<!--    <section class="cta-section">-->
-<!--        <h2>데이터로 생산 현장을 혁신하세요</h2>-->
-<!--        <p>지금 IMPtology와 함께 시작하세요</p>-->
-<!--        <div class="cta-buttons">-->
-<!--            <a href="/data-browser" class="cta-button primary">데이터 탐색하기</a>-->
-<!--            <a href="/analysis" class="cta-button secondary">분석 시작하기</a>-->
-<!--        </div>-->
-<!--    </section>-->
+      <a href="/data-browser" class="cta-button">시작하기</a>
+    </div>
+    <div class="particles-container"></div>
+  </section>
+
+  <!-- 사용예시 섹션 -->
+  <section class="use-case-section">
+    <h2 class="section-title">IMPtology 활용 사례</h2>
+
+    <div class="case-container">
+      <!-- 사례 1: 생산 불량 분석 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-icon factory"></div>
+          <h3>생산 라인 불량률 감소</h3>
+        </div>
+        <div class="case-visual">
+          <div class="before-after">
+            <div class="badge before">
+              <span class="value">5.2%</span>
+              <span class="label">개선 전</span>
+            </div>
+            <div class="arrow">→</div>
+            <div class="badge after">
+              <span class="value">1.8%</span>
+              <span class="label">개선 후</span>
+            </div>
+          </div>
+          <div class="analysis-process">
+            <div class="process-step">데이터 수집</div>
+            <div class="process-step">패턴 분석</div>
+            <div class="process-step">원인 추적</div>
+            <div class="process-step">자동 개선안 제시</div>
+          </div>
+        </div>
+        <p class="case-description">
+          A제조사는 IMPtology를 통해 3개월간 68% 불량률 감소 달성<br />
+          <button class="detail-button" data-case="1">상세 분석 보기</button>
+        </p>
+      </div>
+
+      <!-- 사례 2: 에너지 효율 최적화 -->
+      <div class="case-card">
+        <div class="case-header">
+          <div class="case-icon energy"></div>
+          <h3>에너지 사용 효율화</h3>
+        </div>
+        <div class="case-visual">
+          <div class="energy-gauge">
+            <div class="gauge-fill" style="width: 30%"></div>
+            <span class="gauge-label">30% 효율 개선</span>
+          </div>
+          <div class="energy-source">
+            <span class="source coal">석탄</span>
+            <span class="source gas">가스</span>
+            <span class="source electric">전기</span>
+          </div>
+        </div>
+        <p class="case-description">
+          B발전소의 월간 에너지 비용 22% 절감 실현<br />
+          <button class="detail-button" data-case="2">사례 연구 보기</button>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 동적 배경 요소 추가 -->
+  <div class="dynamic-bg">
+    <div class="flow-line"></div>
+    <div class="data-node"></div>
+    <div class="pulse-effect"></div>
+  </div>
+
+  <!-- 콜투액션 섹션 -->
+  <!-- <section class="cta-section">
+    <h2>데이터로 생산 현장을 혁신하세요</h2>
+    <p>지금 IMPtology와 함께 시작하세요</p>
+    <div class="cta-buttons">
+      <a href="/data-browser" class="cta-button primary">데이터 탐색하기</a>
+      <a href="/analysis" class="cta-button secondary">분석 시작하기</a>
+    </div>
+  </section> -->
 </div>
-{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}">
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}" />
+{% endblock %} {% block extra_js %}
 <script src="{{ url_for('static', path='js/home.js') }}"></script>
 {% endblock %}

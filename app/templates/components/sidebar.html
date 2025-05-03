@@ -1,89 +1,199 @@
 <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <div class="logo">IMPtology</div>
-        <button class="toggle-sidebar" id="toggle-sidebar" aria-label="사이드바 접기">
-            <!-- chevron-left 아이콘: 사이드바를 왼쪽으로 접기 -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                 viewBox="0 0 24 24" fill="none" stroke="#bfc6db" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
+  <div class="sidebar-header">
+    <div class="logo">IMPtology</div>
+    <button
+      class="toggle-sidebar"
+      id="toggle-sidebar"
+      aria-label="사이드바 접기"
+    >
+      <!-- chevron-left 아이콘: 사이드바를 왼쪽으로 접기 -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#bfc6db"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+  </div>
+  <nav class="sidebar-nav">
+    <ul>
+      <li
+        class="nav-item {% if request.url.path == '/home' %}active{% endif %}"
+      >
+        <a href="/home">
+          <div class="nav-icon">
+            <!-- Home 아이콘 (Tabler Icons 스타일) -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+              <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+              <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
             </svg>
-        </button>
-    </div>
-    <nav class="sidebar-nav">
-        <ul>
-            <li class="nav-item {% if request.url.path == '/dashboard' %}active{% endif %}">
-                <a href="/dashboard">
-                    <div class="nav-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="9" rx="2" />
-                            <rect x="14" y="3" width="7" height="5" rx="2" />
-                            <rect x="14" y="12" width="7" height="9" rx="2" />
-                            <rect x="3" y="16" width="7" height="5" rx="2" />
-                        </svg>
-                    </div>
-                    <span>대시보드</span>
-                </a>
-            </li>
-            <li class="nav-item {% if request.url.path == '/data-browser' %}active{% endif %}">
-                <a href="/data-browser">
-                    <div class="nav-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                            <path d="M10 2v4"></path>
-                            <path d="M14 2v4"></path>
-                            <path d="M10 18v4"></path>
-                            <path d="M14 18v4"></path>
-                        </svg>
-                    </div>
-                    <span>데이터 브라우저</span>
-                </a>
-            </li>
-            <li class="nav-item {% if request.url.path == '/analysis' %}active{% endif %}">
-                <a href="/analysis">
-                    <div class="nav-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
-                    </div>
-                    <span>데이터 분석</span>
-                </a>
-            </li>
-            <li class="nav-item {% if request.url.path == '/reports' %}active{% endif %}">
-                <a href="/reports">
-                    <div class="nav-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <span>리포트</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+          </div>
+          <span>홈</span>
+        </a>
+      </li>
 
-    <div class="sidebar-footer">
-        <div class="user-info">
-            <div class="user-avatar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </div>
-            <div class="user-details">
-                <div class="user-name">사용자</div>
-                <div class="user-role">관리자</div>
-            </div>
-        </div>
-        <button class="settings-button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      <li
+        class="nav-item {% if request.url.path == '/notices' %}active{% endif %}"
+      >
+        <a href="/notices">
+          <div class="nav-icon">
+            <!-- Noticeboard 아이콘 -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+              <line x1="8" y1="16" x2="12" y2="16" />
             </svg>
-        </button>
+          </div>
+          <span>공지사항</span>
+        </a>
+      </li>
+
+      <li
+        class="nav-item {% if request.url.path == '/dashboard' %}active{% endif %}"
+      >
+        <a href="/dashboard">
+          <div class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="3" width="7" height="9" rx="2" />
+              <rect x="14" y="3" width="7" height="5" rx="2" />
+              <rect x="14" y="12" width="7" height="9" rx="2" />
+              <rect x="3" y="16" width="7" height="5" rx="2" />
+            </svg>
+          </div>
+          <span>대시보드</span>
+        </a>
+      </li>
+      <li
+        class="nav-item {% if request.url.path == '/data-browser' %}active{% endif %}"
+      >
+        <a href="/data-browser">
+          <div class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              ></path>
+              <path d="M10 2v4"></path>
+              <path d="M14 2v4"></path>
+              <path d="M10 18v4"></path>
+              <path d="M14 18v4"></path>
+            </svg>
+          </div>
+          <span>데이터 브라우저</span>
+        </a>
+      </li>
+      <li
+        class="nav-item {% if request.url.path == '/analysis' %}active{% endif %}"
+      >
+        <a href="/analysis">
+          <div class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+          <span>데이터 분석</span>
+        </a>
+      </li>
+      <li
+        class="nav-item {% if request.url.path == '/reports' %}active{% endif %}"
+      >
+        <a href="/reports">
+          <div class="nav-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <span>리포트</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <div class="user-details">
+        <div class="user-name">사용자</div>
+        <div class="user-role">관리자</div>
+      </div>
     </div>
+    <button class="settings-button">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="12" r="3"></circle>
+        <path
+          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+        ></path>
+      </svg>
+    </button>
+  </div>
 </aside>

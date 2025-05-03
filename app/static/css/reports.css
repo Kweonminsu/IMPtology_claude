@@ -111,7 +111,11 @@
 .create-report-button {
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(42, 42, 114, 0.8));
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.2),
+    rgba(42, 42, 114, 0.8)
+  );
   border: none;
   color: var(--light-color);
   padding: 0.6rem 1.2rem;
@@ -122,7 +126,11 @@
 }
 
 .create-report-button:hover {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.3), rgba(42, 42, 114, 0.9));
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.3),
+    rgba(42, 42, 114, 0.9)
+  );
   transform: translateY(-2px);
 }
 
@@ -178,7 +186,8 @@
   overflow: hidden;
   box-shadow: var(--shadow);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
 }
 
 .report-card:hover {
@@ -212,17 +221,17 @@
 }
 
 .report-thumb.quality {
-  background-color: #FF5E94;
+  background-color: #ff5e94;
   box-shadow: 0 0 20px rgba(255, 94, 148, 0.5);
 }
 
 .report-thumb.equipment {
-  background-color: #50FA7B;
+  background-color: #50fa7b;
   box-shadow: 0 0 20px rgba(80, 250, 123, 0.5);
 }
 
 .report-thumb.process {
-  background-color: #FFB86C;
+  background-color: #ffb86c;
   box-shadow: 0 0 20px rgba(255, 184, 108, 0.5);
 }
 
@@ -253,17 +262,17 @@
 
 .report-badge.manual {
   background-color: rgba(80, 250, 123, 0.2);
-  color: #50FA7B;
+  color: #50fa7b;
 }
 
 .report-badge.scheduled {
   background-color: rgba(255, 184, 108, 0.2);
-  color: #FFB86C;
+  color: #ffb86c;
 }
 
 .report-badge.shared {
   background-color: rgba(189, 147, 249, 0.2);
-  color: #BD93F9;
+  color: #bd93f9;
 }
 
 .report-info {
@@ -329,7 +338,7 @@
 }
 
 .action-button.share:hover {
-  color: #BD93F9;
+  color: #bd93f9;
 }
 
 .action-button.more {
@@ -396,7 +405,7 @@
 }
 
 .section-title::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -418,7 +427,8 @@
   overflow: hidden;
   box-shadow: var(--shadow);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
 }
 
 .template-card:hover {
@@ -434,19 +444,35 @@
 }
 
 .template-preview.production {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.2),
+    rgba(0, 240, 255, 0.1)
+  );
 }
 
 .template-preview.quality {
-  background: linear-gradient(135deg, rgba(255, 94, 148, 0.2), rgba(255, 94, 148, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 94, 148, 0.2),
+    rgba(255, 94, 148, 0.1)
+  );
 }
 
 .template-preview.equipment {
-  background: linear-gradient(135deg, rgba(80, 250, 123, 0.2), rgba(80, 250, 123, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(80, 250, 123, 0.2),
+    rgba(80, 250, 123, 0.1)
+  );
 }
 
 .template-preview.process {
-  background: linear-gradient(135deg, rgba(255, 184, 108, 0.2), rgba(255, 184, 108, 0.1));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 184, 108, 0.2),
+    rgba(255, 184, 108, 0.1)
+  );
 }
 
 .template-icon {
@@ -464,15 +490,15 @@
 }
 
 .template-preview.quality .template-icon {
-  color: #FF5E94;
+  color: #ff5e94;
 }
 
 .template-preview.equipment .template-icon {
-  color: #50FA7B;
+  color: #50fa7b;
 }
 
 .template-preview.process .template-icon {
-  color: #FFB86C;
+  color: #ffb86c;
 }
 
 .template-icon svg {
@@ -553,17 +579,17 @@
 
 .status.active {
   background-color: rgba(80, 250, 123, 0.1);
-  color: #50FA7B;
+  color: #50fa7b;
 }
 
 .status.pending {
   background-color: rgba(255, 184, 108, 0.1);
-  color: #FFB86C;
+  color: #ffb86c;
 }
 
 .status.inactive {
   background-color: rgba(255, 94, 148, 0.1);
-  color: #FF5E94;
+  color: #ff5e94;
 }
 
 .table-action {
@@ -593,7 +619,7 @@
 
 .table-action.delete:hover {
   background-color: rgba(255, 94, 148, 0.1);
-  color: #FF5E94;
+  color: #ff5e94;
 }
 
 /* Responsive Design */

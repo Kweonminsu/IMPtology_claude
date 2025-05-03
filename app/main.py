@@ -7,7 +7,7 @@ from pathlib import Path
 
 # 라우터 추가
 # API 라우터 임포트
-from app.v1.endpoints import auth, users, datasets, insights, reports
+from app.v1.endpoints import auth, users, datasets, insights, reports, notices
 from app.core.config import settings
 
 # from app.v1.endpoints import notices
@@ -27,7 +27,10 @@ app.mount(
 
 # 템플릿 초기화
 templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
+# 기존 라우터 import 아래에 추가
 
+
+# FastAPI 앱 생성 후 라우터 등록
 # API 라우터 포함
 # app.include_router(auth.router, prefix="/api/v1/auth", tags=["인증"])
 # app.include_router(users.router, prefix="/api/v1/users", tags=["사용자"])
@@ -38,7 +41,7 @@ templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 
 
 @app.get("/")
-async def landing_page(request: Request):
+async def home_page(request: Request):
     """랜딩 페이지를 표시합니다."""
     return templates.TemplateResponse(
         "pages/home.html", {"request": request, "page_title": "홈"}
@@ -77,13 +80,6 @@ async def reports_page(request: Request):
     )
 
 
-@app.get("/home")
-async def home_page(request: Request):
-    return templates.TemplateResponse(
-        "pages/home.html", {"request": request, "page_title": "홈"}
-    )
-
-
 @app.exception_handler(404)
 async def not_found_exception_handler(request: Request, exc):
     """404 에러 페이지를 처리합니다."""
@@ -92,12 +88,6 @@ async def not_found_exception_handler(request: Request, exc):
         {"request": request, "page_title": "페이지를 찾을 수 없습니다"},
         status_code=404,
     )
-
-
-# 홈 페이지 라우트 추가
-@app.get("/home")
-async def home_page(request: Request):
-    return templates.TemplateResponse("pages/home.html", {"request": request})
 
 
 # 앱 실행

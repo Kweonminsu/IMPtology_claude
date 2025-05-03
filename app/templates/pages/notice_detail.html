@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}공지사항 상세{% endblock %} {% block
+content %}
+<div class="notice-detail-container">
+  <div class="notice-detail-header">
+    <h2>{{ notice.title }}</h2>
+    <div class="notice-meta">
+      <span>작성자: {{ notice.author.username }}</span>
+      <span>작성일: {{ notice.created_at.strftime('%Y-%m-%d') }}</span>
+      <span>조회수: {{ notice.views }}</span>
+    </div>
+    {% if current_user.is_superuser %}
+    <div class="notice-detail-actions">
+      <a href="/notices/{{ notice.id }}/edit" class="notice-edit-btn">수정</a>
+      <button class="notice-delete-btn" data-id="{{ notice.id }}">삭제</button>
+    </div>
+    {% endif %}
+  </div>
+  <div class="notice-detail-content">{{ notice.content | safe }}</div>
+  <div class="notice-detail-footer">
+    <a href="/notices" class="notice-list-btn">목록으로</a>
+  </div>
+</div>
+{% endblock %}

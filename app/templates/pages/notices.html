@@ -1,65 +1,67 @@
-{% extends "base.html" %}
-
-{% block title %}IMPtology - 공지사항{% endblock %}
-
-{% block content %}
-<div class="notices-page">
-    <div class="notice-header">
-        <h1>공지사항</h1>
+{% extends "base.html" %} {% block title %}IMPtology - 공지사항{% endblock %} {%
+block content %}
+<div class="notice-board-container">
+  <div class="notice-board-header">
+    <h1>
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#32e3c2"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <line x1="8" y1="8" x2="16" y2="8" />
+        <line x1="8" y1="12" x2="16" y2="12" />
+        <line x1="8" y1="16" x2="12" y2="16" />
+      </svg>
+      공지사항
+    </h1>
+    {% if current_user.is_superuser %}
+    <a href="/notices/write" class="notice-write-btn">+ 새 공지 작성</a>
+    {% endif %}
+  </div>
+  <table class="notice-table">
+    <thead>
+      <tr>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
         {% if current_user.is_superuser %}
-        <button class="create-button" onclick="location.href='/notices/create'">새 공지 작성</button>
+        <th>관리</th>
         {% endif %}
-    </div>
-
-    <div class="notice-list">
-        <table class="notice-table">
-            <thead>
-                <tr>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    {% if current_user.is_superuser %}
-                    <th>관리</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for notice in notices %}
-                <tr>
-                    <td><a href="/notices/{{ notice.id }}">{{ notice.title }}</a></td>
-                    <td>{{ notice.author.username }}</td>
-                    <td>{{ notice.created_at.strftime('%Y-%m-%d') }}</td>
-                    {% if current_user.is_superuser %}
-                    <td>
-                        <button class="edit-button" onclick="location.href='/notices/{{ notice.id }}/edit'">수정</button>
-                        <button class="delete-button" onclick="deleteNotice({{ notice.id }})">삭제</button>
-                    </td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+      </tr>
+    </thead>
+    <tbody>
+      {% for notice in notices %}
+      <tr class="notice-row" onclick="location.href='/notices/{{ notice.id }}'">
+        <td class="notice-title">{{ notice.title }}</td>
+        <td>{{ notice.author.username }}</td>
+        <td>{{ notice.created_at.strftime('%Y-%m-%d') }}</td>
+        <td>{{ notice.views }}</td>
+        {% if current_user.is_superuser %}
+        <td>
+          <a href="/notices/{{ notice.id }}/edit" class="notice-edit-btn"
+            >수정</a
+          >
+          <button class="notice-delete-btn" data-id="{{ notice.id }}">
+            삭제
+          </button>
+        </td>
+        {% endif %}
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" style="text-align: center">
+          등록된 공지사항이 없습니다.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-function deleteNotice(noticeId) {
-    if (confirm('정말 삭제하시겠습니까?')) {
-        fetch(`/api/v1/notices/${noticeId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                location.reload();
-            }
-        });
-    }
-}
-</script>
 {% endblock %}

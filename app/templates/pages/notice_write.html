@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block title %}공지사항 작성{% endblock %} {% block
+content %}
+<div class="notice-write-container">
+  <h2>공지사항 작성</h2>
+  <form action="/notices/write" method="post" class="notice-write-form">
+    <input type="text" name="title" placeholder="제목을 입력하세요" required />
+    <textarea
+      name="content"
+      rows="10"
+      placeholder="내용을 입력하세요"
+      required
+    ></textarea>
+    <div class="notice-write-actions">
+      <button type="submit" class="notice-submit-btn">등록</button>
+      <a href="/notices" class="notice-cancel-btn">취소</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
