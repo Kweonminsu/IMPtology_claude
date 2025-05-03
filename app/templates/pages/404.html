@@ -1,13 +1,106 @@
-<!-- app/templates/pages/404.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>404 - 페이지를 찾을 수 없음</title>
+    <title>404🤦‍♂️<br>
+        페이지를 찾을 수 없음</title>
+    <style>
+        body {
+            background: #181a20;
+            color: #bfc6db;
+            font-family: 'Pretendard', 'Noto Sans KR', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .error-container {
+            background: #23242a;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,240,255,0.06);
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 400px;
+            text-align: center;
+        }
+        .error-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #32e3c2;
+            margin-bottom: 0.7rem;
+        }
+        .error-message {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+        }
+        .error-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            margin-bottom: 1.2rem;
+        }
+        .error-actions a, .error-actions button {
+            background: #32e3c2;
+            color: #181a20;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .error-actions a:hover, .error-actions button:hover {
+            background: #28bfa0;
+        }
+        .contact-info {
+            margin-top: 1.2rem;
+            font-size: 0.95rem;
+            color: #bfc6db;
+        }
+        .apology {
+            color: #ffb4b4;
+            margin-top: 0.7rem;
+            font-size: 1rem;
+        }
+        .search-bar {
+            margin-bottom: 1rem;
+        }
+        .search-bar input {
+            width: 80%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #2d2d40;
+            background: #181a20;
+            color: #bfc6db;
+        }
+    </style>
 </head>
 <body>
-    <h1>404 - 페이지를 찾을 수 없습니다</h1>
-    <p>요청한 페이지가 존재하지 않아요 😢</p>
-    <a href="/">홈으로 돌아가기</a>
+    <div class="error-container">
+        <div class="error-title">404<br>
+            페이지를 찾을 수 없습니다</div>
+        <div class="error-message">
+            요청하신 페이지가 존재하지 않거나,<br>
+            이동되었을 수 있습니다. 불편을 드려 정말 죄송합니다.
+        </div>
+<!--        <form class="search-bar" action="/search" method="get">-->
+<!--            <input type="text" name="q" placeholder="찾으시는 내용을 검색해보세요">-->
+<!--        </form>-->
+        <div class="error-actions">
+            <a href="/">홈으로 돌아가기</a>
+            <a href="email_api">관리자 이메일로 문의</a>
+        </div>
+        <div class="contact-info">
+            긴급 문의: 권민수 (031-)<br>
+            <a href="email_api" style="color:#32e3c2;">ms95.kweon@samsung.com</a>
+        </div>
+        <div class="apology">
+            이용에 불편을 드린 점 다시 한 번 사과드립니다.<br>
+            빠르게 문제를 해결하겠습니다.🙇‍♂️
+        </div>
+    </div>
 </body>
 </html>

@@ -410,3 +410,32 @@ button {
     display: none;
   }
 }
+
+/* 파티클 스타일 */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  pointer-events: none;
+  z-index: 1;
+  animation: float 8s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-15px, 15px);
+  }
+  50% {
+    transform: translate(15px, 30px);
+  }
+  75% {
+    transform: translate(15px, -15px);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 0.8s ease forwards;
+}

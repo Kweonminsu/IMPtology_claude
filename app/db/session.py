@@ -3,6 +3,7 @@ def get_db():
 
 
 from sqlalchemy.orm import declarative_base, sessionmaker
+
 # from sqlalchemy import create_engine
 
 # 데이터베이스 URL 설정 (예시: PostgreSQL)
