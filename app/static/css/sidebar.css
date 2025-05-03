@@ -1,0 +1,71 @@
+.nav-item {
+  position: relative;
+  list-style-type: none;
+}
+
+.nav-item a.has-submenu {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.nav-icon {
+  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.submenu-arrow {
+  margin-left: auto;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid #666;
+  border-bottom: 2px solid #666;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.nav-item.active a.has-submenu,
+.nav-item a.has-submenu:hover {
+  background-color: #f5f5f5;
+}
+
+.submenu {
+  display: none;
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  background-color: #fff;
+  border-left: 3px solid #3498db;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+}
+
+.submenu li {
+  padding: 0;
+}
+
+.submenu li a {
+  display: block;
+  padding: 8px 15px 8px 25px;
+  text-decoration: none;
+  color: #555;
+  transition: background-color 0.2s;
+}
+
+.submenu li.active a,
+.submenu li a:hover {
+  background-color: #eaf2f8;
+}
+
+/* 열린 상태 스타일 */
+.nav-item.open .submenu {
+  display: block;
+}
+
+.nav-item.open .submenu-arrow {
+  transform: rotate(-135deg);
+  margin-top: 5px;
+}

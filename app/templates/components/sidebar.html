@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="static/css/sidebar.css">
+
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="logo">IMPtology</div>
@@ -27,7 +29,7 @@
       <li
         class="nav-item {% if request.url.path == '/home' %}active{% endif %}"
       >
-        <a href="/home">
+        <a href="/">
           <div class="nav-icon">
             <!-- Home 아이콘 (Tabler Icons 스타일) -->
             <svg
@@ -98,10 +100,11 @@
           <span>대시보드</span>
         </a>
       </li>
+
       <li
-        class="nav-item {% if request.url.path == '/data-browser' %}active{% endif %}"
+        class="nav-item {% if request.url.path.startswith('/data-browser') %}active{% endif %}"
       >
-        <a href="/data-browser">
+        <a href="#" class="has-submenu">
           <div class="nav-icon">
             <svg
               viewBox="0 0 24 24"
@@ -109,18 +112,29 @@
               stroke="currentColor"
               stroke-width="2"
             >
-              <path
-                d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-              ></path>
-              <path d="M10 2v4"></path>
-              <path d="M14 2v4"></path>
-              <path d="M10 18v4"></path>
-              <path d="M14 18v4"></path>
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              <line x1="8" y1="8" x2="16" y2="8" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+              <line x1="8" y1="16" x2="12" y2="16" />
             </svg>
           </div>
           <span>데이터 브라우저</span>
+          <div class="submenu-arrow"></div>
         </a>
+        <ul class="submenu">
+          <li
+            class="{% if request.url.path == '/data-browser/tables' %}active{% endif %}"
+          >
+            <a href="/data-browser/tables">테이블 정보</a>
+          </li>
+          <li
+            class="{% if request.url.path == '/data-browser/query' %}active{% endif %}"
+          >
+            <a href="/data-browser/query">검색 서비스</a>
+          </li>
+        </ul>
       </li>
+
       <li
         class="nav-item {% if request.url.path == '/analysis' %}active{% endif %}"
       >
@@ -197,3 +211,4 @@
     </button>
   </div>
 </aside>
+<script src="static/js/sidebar.js" defer></script>
