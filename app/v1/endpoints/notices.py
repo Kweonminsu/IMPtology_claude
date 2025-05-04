@@ -121,3 +121,69 @@ async def delete_notice(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="공지사항을 찾을 수 없습니다"
         )
+
+
+"""
+# routes/notices.py
+
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from typing import List
+
+from app.database.connection import get_db
+from app.models.notice import Notice, NoticeCreate, NoticeUpdate
+
+router = APIRouter(
+    prefix="/api/notices",
+    tags=["notices"]
+)
+
+@router.get("/", response_model=List[Notice])
+def get_notices(db: Session = Depends(get_db)):
+    # 데이터베이스에서 공지사항 목록 조회
+    notices = db.query(Notice).order_by(Notice.date.desc()).all()
+    return notices
+
+@router.post("/", response_model=Notice)
+def create_notice(notice: NoticeCreate, db: Session = Depends(get_db)):
+    # 새 공지사항 생성
+    db_notice = Notice(**notice.dict())
+    db.add(db_notice)
+    db.commit()
+    db.refresh(db_notice)
+    return db_notice
+
+@router.get("/{notice_id}", response_model=Notice)
+def get_notice(notice_id: int, db: Session = Depends(get_db)):
+    # 특정 공지사항 조회
+    db_notice = db.query(Notice).filter(Notice.id == notice_id).first()
+    if db_notice is None:
+        raise HTTPException(status_code=404, detail="공지사항을 찾을 수 없습니다")
+    return db_notice
+
+@router.put("/{notice_id}", response_model=Notice)
+def update_notice(notice_id: int, notice: NoticeUpdate, db: Session = Depends(get_db)):
+    # 공지사항 수정
+    db_notice = db.query(Notice).filter(Notice.id == notice_id).first()
+    if db_notice is None:
+        raise HTTPException(status_code=404, detail="공지사항을 찾을 수 없습니다")
+    
+    for key, value in notice.dict(exclude_unset=True).items():
+        setattr(db_notice, key, value)
+    
+    db.commit()
+    db.refresh(db_notice)
+    return db_notice
+
+@router.delete("/{notice_id}", response_model=Notice)
+def delete_notice(notice_id: int, db: Session = Depends(get_db)):
+    # 공지사항 삭제
+    db_notice = db.query(Notice).filter(Notice.id == notice_id).first()
+    if db_notice is None:
+        raise HTTPException(status_code=404, detail="공지사항을 찾을 수 없습니다")
+    
+    db.delete(db_notice)
+    db.commit()
+    return db_notice
+
+"""

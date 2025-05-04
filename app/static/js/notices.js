@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * 공지사항 목록을 화면에 렌더링하는 함수
      * 현재 페이지에 해당하는 공지사항만 표시함
      */
-function renderNotices() {
+    function renderNotices() {
     // 페이지네이션: 현재 페이지에 해당하는 데이터만 추출
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -101,7 +101,7 @@ function renderNotices() {
             <td>${notice.views}</td>
         `;
 
-        // 클릭 가능함을 시각적으로 표시 (선택 사항)
+        // 클릭 가능함을 시각적으로 표시
         row.style.cursor = 'pointer';
 
         // 테이블에 행 추가
