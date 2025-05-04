@@ -37,7 +37,7 @@ templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 # app.include_router(datasets.router, prefix="/api/v1/datasets", tags=["데이터셋"])
 # app.include_router(insights.router, prefix="/api/v1/insights", tags=["인사이트"])
 # app.include_router(reports.router, prefix="/api/v1/reports", tags=["리포트"])
-# app.include_router(notices.router, prefix="/api/v1/notices", tags=["공지사항"])
+app.include_router(notices.router, prefix="/api/v1/notices", tags=["공지사항"])
 
 
 @app.get("/")
@@ -77,6 +77,19 @@ async def reports_page(request: Request):
     """리포트 페이지를 표시합니다."""
     return templates.TemplateResponse(
         "pages/reports.html", {"request": request, "page_title": "리포트"}
+    )
+
+
+@app.get("/notices", include_in_schema=False)
+async def notices_page(request: Request):
+    """
+    공지사항 페이지를 렌더링합니다.
+    """
+    # 관리자 여부 확인 (실제로는 인증 정보에서 확인)
+    is_admin = True  # 개발 중에는 임시로 True 설정
+
+    return templates.TemplateResponse(
+        "pages/notices.html", {"request": request, "is_admin": is_admin}
     )
 
 

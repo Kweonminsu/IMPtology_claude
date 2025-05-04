@@ -1,67 +1,97 @@
-{% extends "base.html" %} {% block title %}IMPtology - 공지사항{% endblock %} {%
-block content %}
-<div class="notice-board-container">
-  <div class="notice-board-header">
-    <h1>
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#32e3c2"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <rect x="4" y="4" width="16" height="16" rx="2" />
-        <line x1="8" y1="8" x2="16" y2="8" />
-        <line x1="8" y1="12" x2="16" y2="12" />
-        <line x1="8" y1="16" x2="12" y2="16" />
-      </svg>
-      공지사항
-    </h1>
-    {% if current_user.is_superuser %}
-    <a href="/notices/write" class="notice-write-btn">+ 새 공지 작성</a>
-    {% endif %}
-  </div>
-  <table class="notice-table">
-    <thead>
-      <tr>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>작성일</th>
-        <th>조회수</th>
-        {% if current_user.is_superuser %}
-        <th>관리</th>
+{% extends "base.html" %}
+
+{% block title %}공지사항 - IMPtology{% endblock %}
+
+{% block page_title %}공지사항{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='/css/notices.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="notices-container">
+    <div class="notices-header">
+        <h2>IMPtology 공지사항</h2>
+        {% if is_admin %}
+        <button id="create-notice-btn" class="btn btn-primary">공지사항 작성</button>
         {% endif %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for notice in notices %}
-      <tr class="notice-row" onclick="location.href='/notices/{{ notice.id }}'">
-        <td class="notice-title">{{ notice.title }}</td>
-        <td>{{ notice.author.username }}</td>
-        <td>{{ notice.created_at.strftime('%Y-%m-%d') }}</td>
-        <td>{{ notice.views }}</td>
-        {% if current_user.is_superuser %}
-        <td>
-          <a href="/notices/{{ notice.id }}/edit" class="notice-edit-btn"
-            >수정</a
-          >
-          <button class="notice-delete-btn" data-id="{{ notice.id }}">
-            삭제
-          </button>
-        </td>
-        {% endif %}
-      </tr>
-      {% else %}
-      <tr>
-        <td colspan="5" style="text-align: center">
-          등록된 공지사항이 없습니다.
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    </div>
+
+    <div class="notice-search">
+        <input type="text" id="notice-search-input" placeholder="검색어를 입력하세요">
+        <button id="notice-search-btn" class="btn">검색</button>
+    </div>
+
+    <div class="notices-list">
+        <table id="notices-table">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                </tr>
+            </thead>
+            <tbody id="notices-tbody">
+                <!-- 공지사항 목록이 여기에 동적으로 추가됩니다 -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="notices-pagination">
+        <button id="prev-page" class="btn">이전</button>
+        <div id="pagination-numbers"></div>
+        <button id="next-page" class="btn">다음</button>
+    </div>
 </div>
+
+<!-- 공지사항 작성/수정 모달 -->
+<div id="notice-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modal-title">공지사항 작성</h2>
+        <form id="notice-form">
+            <div class="form-group">
+                <label for="notice-title">제목</label>
+                <input type="text" id="notice-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="notice-content">내용</label>
+                <textarea id="notice-content" name="content" rows="10" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">저장</button>
+                <button type="button" class="btn btn-secondary" id="cancel-btn">취소</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 공지사항 상세 보기 모달 -->
+<div id="notice-detail-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="notice-detail-container">
+            <h2 id="detail-title"></h2>
+            <div class="notice-info">
+                <span id="detail-author"></span>
+                <span id="detail-date"></span>
+                <span id="detail-views"></span>
+            </div>
+            <div id="detail-content" class="notice-content"></div>
+
+            {% if is_admin %}
+            <div class="notice-actions">
+                <button id="edit-notice-btn" class="btn btn-primary">수정</button>
+                <button id="delete-notice-btn" class="btn btn-danger">삭제</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='/js/notices.js') }}"></script>
 {% endblock %}
