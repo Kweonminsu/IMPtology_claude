@@ -1,90 +1,100 @@
 {% extends "base.html" %}
 
-{% block title %}IMPtology - 공지사항{% endblock %}
+{% block title %}공지사항 - IMPtology{% endblock %}
 
-{% block page_title %}공지사항{% endblock %}
+{% block page_title %}IMPtology 공지사항{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', path='/css/notices.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="notices-container">
-    <div class="notices-header">
-        <h2>IMPtology 공지사항</h2>
-        {% if is_admin %}
-        <button id="create-notice-btn" class="btn btn-primary">공지사항 작성</button>
-        {% endif %}
+<div class="notice-board-container">
+    <div class="notice-board-header">
+        <div>공지사항 전체</div>
+        <div class="notice-search">
+            <select class="search-select">
+                <option selected>검색옵션</option>
+                <option>제목</option>
+                <option>작성자</option>
+            </select>
+            <input type="text" id="notice-search-input" placeholder="검색어를 입력하세요">
+            <button id="notice-search-btn" class="search-btn">검색</button>
+        </div>
     </div>
 
-    <div class="notice-search">
-        <input type="text" id="notice-search-input" placeholder="검색어를 입력하세요">
-        <button id="notice-search-btn" class="btn">검색</button>
+    <!-- 관리자만 공지사항 작성 버튼 표시 -->
+    {% if is_admin %}
+    <div class="admin-controls">
+        <button id="create-notice-btn" class="submit-btn">공지사항 작성</button>
     </div>
+    {% endif %}
 
-    <div class="notices-list">
-        <table id="notices-table">
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                </tr>
-            </thead>
-            <tbody id="notices-tbody">
-                <!-- 공지사항 목록이 여기에 동적으로 추가됩니다 -->
-            </tbody>
-        </table>
-    </div>
+    <table class="notice-table">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+        </thead>
+        <tbody id="notices-tbody">
+            <!-- JavaScript로 동적으로 생성됨 -->
+        </tbody>
+    </table>
 
-    <div class="notices-pagination">
-        <button id="prev-page" class="btn">이전</button>
-        <div id="pagination-numbers"></div>
-        <button id="next-page" class="btn">다음</button>
+    <div class="pagination">
+        <button id="prev-page" class="pagination-btn">이전</button>
+        <div id="pagination-numbers" class="page-numbers"></div>
+        <button id="next-page" class="pagination-btn">다음</button>
     </div>
 </div>
 
-<!-- 공지사항 작성/수정 모달 -->
-<div id="notice-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 id="modal-title">공지사항 작성</h2>
-        <form id="notice-form">
-            <div class="form-group">
-                <label for="notice-title">제목</label>
-                <input type="text" id="notice-title" name="title" required>
-            </div>
-            <div class="form-group">
-                <label for="notice-content">내용</label>
-                <textarea id="notice-content" name="content" rows="10" required></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">저장</button>
-                <button type="button" class="btn btn-secondary" id="cancel-btn">취소</button>
-            </div>
-        </form>
+<!-- 관리자만 공지사항 작성 폼 표시 -->
+{% if is_admin %}
+<div class="notice-write-container" id="notice-form-container">
+    <div class="notice-write-header">
+        <h2>공지사항 작성</h2>
     </div>
+    <form id="notice-form" class="notice-write-form">
+        <div class="form-group">
+            <label for="notice-title">제목</label>
+            <input type="text" id="notice-title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="notice-content">내용</label>
+            <textarea id="notice-content" name="content" rows="10" required></textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="submit-btn">저장</button>
+            <button type="button" id="cancel-btn" class="cancel-btn">취소</button>
+        </div>
+    </form>
 </div>
+{% endif %}
 
 <!-- 공지사항 상세 보기 모달 -->
 <div id="notice-detail-modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <div id="notice-detail-container">
-            <h2 id="detail-title"></h2>
-            <div class="notice-info">
-                <span id="detail-author"></span>
-                <span id="detail-date"></span>
-                <span id="detail-views"></span>
+            <div class="notice-detail-header">
+                <h2 id="detail-title"></h2>
+                <div class="notice-meta">
+                    <span id="detail-author"></span>
+                    <span id="detail-date"></span>
+                    <span id="detail-views"></span>
+                </div>
             </div>
-            <div id="detail-content" class="notice-content"></div>
+            <div id="detail-content" class="notice-detail-content"></div>
 
+            <!-- 관리자만 수정/삭제 버튼 표시 -->
             {% if is_admin %}
             <div class="notice-actions">
-                <button id="edit-notice-btn" class="btn btn-primary">수정</button>
-                <button id="delete-notice-btn" class="btn btn-danger">삭제</button>
+                <button id="edit-notice-btn" class="edit-btn">수정</button>
+                <button id="delete-notice-btn" class="delete-btn">삭제</button>
             </div>
             {% endif %}
         </div>
@@ -93,5 +103,9 @@
 {% endblock %}
 
 {% block extra_js %}
+<script>
+    // 서버에서 관리자 여부를 JavaScript로 전달
+    const isAdmin = {% if is_admin %}true{% else %}false{% endif %};
+</script>
 <script src="{{ url_for('static', path='/js/notices.js') }}"></script>
 {% endblock %}

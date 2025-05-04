@@ -518,10 +518,10 @@
 
 .case-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 .case-card {

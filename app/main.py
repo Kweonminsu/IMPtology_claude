@@ -64,6 +64,15 @@ async def data_browser(request: Request):
     )
 
 
+@app.get("/data-browser/tables")
+async def data_browser_tables(request: Request):
+    """테이블 정보 페이지를 표시합니다."""
+    return templates.TemplateResponse(
+        "pages/data_browser_tables.html",
+        {"request": request, "page_title": "테이블 정보"},
+    )
+
+
 @app.get("/analysis")
 async def analysis(request: Request):
     """데이터 분석 페이지를 표시합니다."""
@@ -85,8 +94,10 @@ async def notices_page(request: Request):
     """
     공지사항 페이지를 렌더링합니다.
     """
-    # 관리자 여부 확인 (실제로는 인증 정보에서 확인)
-    is_admin = True  # 개발 중에는 임시로 True 설정
+    # 세션에서 사용자 정보를 가져와 관리자 여부 확인
+    # 실제 구현에서는 사용자 인증 및 권한 확인 로직 필요
+    # 지금은 임시로 관리자 여부를 설정 (테스트용)
+    is_admin = False  # 일반 사용자로 설정 (테스트할 때 True/False 전환)
 
     return templates.TemplateResponse(
         "pages/notices.html", {"request": request, "is_admin": is_admin}
