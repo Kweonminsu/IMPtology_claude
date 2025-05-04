@@ -1,71 +1,100 @@
-{% extends "base.html" %} {% block title %}IMPtology - 데이터브라우저{% endblock
-%} {% block page_title %}데이터브라우저{% endblock %} {% block content %}
-<div class="data-browser">
-  <div class="data-browser-header">
-    <div class="browser-tabs">
-      <button class="browser-tab active">데이터 소스</button>
-      <button class="browser-tab">테이블</button>
-      <button class="browser-tab">쿼리 빌더</button>
-      <button class="browser-tab">저장된 쿼리</button>
+{% extends "base.html" %}
+
+{% block title %}IMPtology - 테이블 정보{% endblock %}
+
+{% block page_title %}데이터 테이블 정보{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='/css/data_browser_tables.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="tables-container">
+    <div class="tables-header">
+        <h2>데이터베이스 테이블 목록</h2>
+        <div class="search-bar">
+            <input type="text" id="table-search" placeholder="테이블 검색...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="filter-options">
+            <select id="category-filter">
+                <option value="all">모든 카테고리</option>
+                <option value="production">생산</option>
+                <option value="sales">판매</option>
+                <option value="quality">품질</option>
+                <option value="hr">인사</option>
+            </select>
+        </div>
     </div>
 
-    <div class="browser-actions">
-      <button class="action-button">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-        새 쿼리
-      </button>
-      <button class="action-button">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        내보내기
-      </button>
+    <div class="tables-grid" id="tables-grid">
+        <!-- 테이블 폴더 항목들은 JavaScript로 동적 생성됩니다 -->
     </div>
-  </div>
-
-  <div class="data-browser-content">
-    <div class="side-panel">
-      <div class="search-filter">
-        <input type="text" placeholder="데이터 소스 검색" />
-        <button class="filter-button">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <polygon
-              points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
-            ></polygon>
-          </svg>
-        </button>
-      </div>
-
-      <div class="data-sources-tree">
-        <!-- 데이터 소스 트리 구조 -->
-      </div>
-    </div>
-
-    <div class="main-content">
-      <!-- 메인 컨텐츠 영역 -->
-    </div>
-  </div>
 </div>
-{% endblock %} {% block extra_js %}
-<script src="{{ url_for('static', path='js/data_browser.js') }}"></script>
+
+<!-- 테이블 상세정보 모달 -->
+<div id="table-detail-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-table-name">테이블 이름</h3>
+            <span class="close-modal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="info-section">
+                <div class="info-header">
+                    <h4>테이블 정보</h4>
+                    <span class="last-update" id="last-update">마지막 업데이트: 2025-05-01</span>
+                </div>
+                <div class="table-info">
+                    <p id="table-description">테이블 설명 텍스트가 이곳에 표시됩니다.</p>
+                    <div class="meta-info">
+                        <div class="meta-item">
+                            <span class="meta-label">업데이트 주기:</span>
+                            <span id="update-cycle">일 1회</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">관리자:</span>
+                            <span id="table-admin">데이터 관리팀</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">레코드 수:</span>
+                            <span id="record-count">12,345</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">생성일:</span>
+                            <span id="created-date">2024-11-15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns-section">
+                <h4>컬럼 정보</h4>
+                <table class="columns-table">
+                    <thead>
+                        <tr>
+                            <th>컬럼명</th>
+                            <th>데이터 타입</th>
+                            <th>설명</th>
+                            <th>Nullable</th>
+                        </tr>
+                    </thead>
+                    <tbody id="columns-container">
+                        <!-- 컬럼 정보가 JavaScript로 동적 생성됨 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn view-data-btn">데이터 조회</button>
+                <button class="action-btn download-info-btn">정보 다운로드</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='/js/data_browser_tables.js') }}"></script>
 {% endblock %}

@@ -67,47 +67,47 @@ document.addEventListener('DOMContentLoaded', function() {
      * 현재 페이지에 해당하는 공지사항만 표시함
      */
     function renderNotices() {
-    // 페이지네이션: 현재 페이지에 해당하는 데이터만 추출
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const currentPageNotices = sampleNotices.slice(startIndex, endIndex);
+        // 페이지네이션: 현재 페이지에 해당하는 데이터만 추출
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const currentPageNotices = sampleNotices.slice(startIndex, endIndex);
 
-    // 테이블 내용 비우기
-    noticesTbody.innerHTML = '';
+        // 테이블 내용 비우기
+        noticesTbody.innerHTML = '';
 
-    // 공지사항 데이터가 없는 경우 메시지 표시
-    if (currentPageNotices.length === 0) {
-        const emptyRow = document.createElement('tr');
-        emptyRow.innerHTML = '<td colspan="5" class="text-center">등록된 공지사항이 없습니다.</td>';
-        noticesTbody.appendChild(emptyRow);
-        return;
+        // 공지사항 데이터가 없는 경우 메시지 표시
+        if (currentPageNotices.length === 0) {
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = '<td colspan="5" class="text-center">등록된 공지사항이 없습니다.</td>';
+            noticesTbody.appendChild(emptyRow);
+            return;
+        }
+
+        // 공지사항 항목 생성하여 테이블에 추가
+        currentPageNotices.forEach(notice => {
+            const row = document.createElement('tr');
+            row.dataset.id = notice.id; // 데이터 속성으로 ID 저장
+
+            // 날짜 형식 변환
+            const dateObj = new Date(notice.date);
+            const formattedDate = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`;
+
+            // 행 내용 설정
+            row.innerHTML = `
+                <td>${notice.id}</td>
+                <td class="notice-title">${notice.title}</td>
+                <td>${notice.author}</td>
+                <td>${formattedDate}</td>
+                <td>${notice.views}</td>
+            `;
+
+            // 클릭 가능함을 시각적으로 표시
+            row.style.cursor = 'pointer';
+
+            // 테이블에 행 추가
+            noticesTbody.appendChild(row);
+        });
     }
-
-    // 공지사항 항목 생성하여 테이블에 추가
-    currentPageNotices.forEach(notice => {
-        const row = document.createElement('tr');
-        row.dataset.id = notice.id; // 데이터 속성으로 ID 저장
-
-        // 날짜 형식 변환
-        const dateObj = new Date(notice.date);
-        const formattedDate = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`;
-
-        // 행 내용 설정
-        row.innerHTML = `
-            <td>${notice.id}</td>
-            <td class="notice-title">${notice.title}</td>
-            <td>${notice.author}</td>
-            <td>${formattedDate}</td>
-            <td>${notice.views}</td>
-        `;
-
-        // 클릭 가능함을 시각적으로 표시
-        row.style.cursor = 'pointer';
-
-        // 테이블에 행 추가
-        noticesTbody.appendChild(row);
-    });
-}
 
     /**
      * 페이지네이션 버튼을 생성하는 함수
@@ -376,6 +376,16 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('공지사항이 삭제되었습니다.');
     }
 
+    // 이벤트 위임을 사용한 테이블 행 클릭 이벤트 처리
+    noticesTbody.addEventListener('click', function(e) {
+        // 클릭된 요소가 tr이나 그 자식 요소인지 확인
+        const row = e.target.closest('tr');
+        if (row && row.dataset.id) {
+            // dataset.id는 문자열이므로 정수로 변환
+            showNoticeDetail(parseInt(row.dataset.id));
+        }
+    });
+
     // ===== 이벤트 리스너 설정 =====
 
     // 페이지네이션: 이전 페이지 버튼
@@ -485,4 +495,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // 페이지 로드 시 초기 데이터 렌더링
     renderNotices();
     renderPagination();
+});
+
+// 이벤트 위임을 사용한 테이블 행 클릭 이벤트 처리
+noticesTbody.addEventListener('click', function(e) {
+    // 클릭된 요소가 tr이나 그 자식 요소인지 확인
+    const row = e.target.closest('tr');
+    if (row && row.dataset.id) {
+        // dataset.id는 문자열이므로 정수로 변환
+        showNoticeDetail(parseInt(row.dataset.id));
+    }
 });
