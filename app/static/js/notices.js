@@ -496,13 +496,3 @@ document.addEventListener('DOMContentLoaded', function() {
     renderNotices();
     renderPagination();
 });
-
-// 이벤트 위임을 사용한 테이블 행 클릭 이벤트 처리
-noticesTbody.addEventListener('click', function(e) {
-    // 클릭된 요소가 tr이나 그 자식 요소인지 확인
-    const row = e.target.closest('tr');
-    if (row && row.dataset.id) {
-        // dataset.id는 문자열이므로 정수로 변환
-        showNoticeDetail(parseInt(row.dataset.id));
-    }
-});

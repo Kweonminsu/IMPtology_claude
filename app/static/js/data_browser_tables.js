@@ -149,42 +149,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // 카테고리별 색상 지정
-    function getFolderColor(category) {
-        const colors = {
-            'production': '#4A90E2', // 파란색
-            'quality': '#50E3C2',    // 청록색
-            'sales': '#F5A623',      // 노란색/주황색
-            'hr': '#E74C3C'          // 빨간색
-        };
-
-        return colors[category] || '#00f0ff'; // 기본 색상
-    }
-
-    // 카테고리 이름 변환 함수
-    function getCategoryName(category) {
-        const categories = {
-            'production': '생산',
-            'quality': '품질',
-            'sales': '판매',
-            'hr': '인사'
-        };
-
-        return categories[category] || category;
-    }
-
     // 테이블 폴더 생성 함수
     function createTableFolder(table) {
         const tableFolder = document.createElement('div');
         tableFolder.className = 'table-folder';
         tableFolder.dataset.tableId = table.id;
 
-        const folderColor = getFolderColor(table.category);
-
         tableFolder.innerHTML = `
             <div class="folder-icon">
-                <div class="folder-tab" style="background-color: ${folderColor};"></div>
-                <div class="folder-body" style="background-color: ${folderColor};"></div>
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="folder-texture"></div>
+                </div>
                 <div class="folder-paper"></div>
             </div>
             <div class="table-name">${table.displayName}</div>
@@ -197,6 +173,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         return tableFolder;
+    }
+
+    // 카테고리 이름 변환 함수
+    function getCategoryName(category) {
+        const categories = {
+            'production': '생산',
+            'quality': '품질',
+            'sales': '판매',
+            'hr': '인사'
+        };
+
+        return categories[category] || category;
     }
 
     // 테이블 목록 렌더링 함수
@@ -242,11 +230,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 모달 열기
         const modal = document.getElementById('table-detail-modal');
         modal.style.display = 'block';
-
-        // 모달 헤더 색상을 테이블 카테고리 색상과 일치시키기
-        const headerColor = getFolderColor(table.category);
-        document.querySelector('.modal-header').style.borderBottomColor = headerColor;
-        document.getElementById('modal-table-name').style.color = headerColor;
     }
 
     // 모달 닫기 함수
@@ -262,8 +245,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const filteredTables = tables.filter(table => {
             const matchesSearch = table.name.toLowerCase().includes(searchTerm) ||
-                              table.displayName.toLowerCase().includes(searchTerm) ||
-                              table.description.toLowerCase().includes(searchTerm);
+                                table.displayName.toLowerCase().includes(searchTerm) ||
+                                table.description.toLowerCase().includes(searchTerm);
 
             const matchesCategory = categoryFilter === 'all' || table.category === categoryFilter;
 

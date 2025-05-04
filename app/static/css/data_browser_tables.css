@@ -8,7 +8,7 @@
     --gray-color: #a0a0a0;
     --transition-speed: 0.3s;
     --folder-size: 180px;
-    --folder-color: #FFCC00;
+    --folder-color: #FFBE00;
 }
 
 .tables-container {
@@ -77,14 +77,15 @@
     padding: 10px 5px;
 }
 
-/* 테이블 폴더 아이템 - 노란색 3D 폴더 */
+/* 폴더 디자인 - 3D 스타일 */
 .table-folder {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
     position: relative;
+    perspective: 800px;
 }
 
 .table-folder:hover {
@@ -97,27 +98,28 @@
     position: relative;
     margin-bottom: 15px;
     transition: all 0.3s ease;
-    perspective: 500px;
+    transform-style: preserve-3d;
 }
 
 .table-folder:hover .folder-icon {
-    transform: scale(1.05) rotateY(5deg);
+    transform: rotateY(10deg);
 }
 
-/* 폴더 탭 (상단 튀어나온 부분) */
+/* 폴더 탭 부분 */
 .folder-tab {
     position: absolute;
-    width: 40%;
-    height: 22%;
-    left: 0;
-    top: 0;
-    border-radius: 5px 5px 0 0;
+    width: 30%;
+    height: 8.8%;
+    left: 5%;
+    top: 6.3%;
     background-color: var(--folder-color) !important;
+    border-radius: 5px 5px 0 0;
     z-index: 2;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* 폴더 메인 바디 */
+
+/* 폴더 본체 */
 .folder-body {
     position: absolute;
     width: 100%;
@@ -125,55 +127,23 @@
     bottom: 0;
     left: 0;
     background-color: var(--folder-color) !important;
-    border-radius: 5px 15px 5px 5px;
-    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 5px 8px 5px 5px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 1;
+    overflow: hidden;
 }
 
-/* 폴더 내부 표현 */
-.folder-paper {
-    position: absolute;
-    width: 70%;
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.9);
-    bottom: 30%;
-    left: 15%;
-    z-index: 2;
-    border-radius: 2px;
-}
-
-.folder-paper:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.9);
-    bottom: 14px;
-    left: 0;
-    border-radius: 2px;
-}
-
-.folder-paper:after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.9);
-    bottom: 28px;
-    left: 0;
-    border-radius: 2px;
-}
-
-/* 3D 효과를 위한 추가 요소 */
+/* 3D 효과를 위한 음영과 하이라이트 */
 .folder-body:before {
     content: '';
     position: absolute;
     top: 0;
     right: 0;
-    width: 10%;
+    width: 8%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 0 15px 5px 0;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.15));
+    border-radius: 0 8px 5px 0;
+    z-index: 2;
 }
 
 .folder-body:after {
@@ -183,8 +153,55 @@
     left: 0;
     width: 100%;
     height: 8%;
-    background-color: rgba(0, 0, 0, 0.05);
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
     border-radius: 0 0 5px 5px;
+    z-index: 2;
+}
+
+/* 폴더 내부 종이 문서 */
+.folder-paper {
+    position: absolute;
+    width: 85%;
+    height: 10%;
+    left: 7.5%;
+    top: 20%;
+    background-color: white;
+    z-index: 2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    transform: translateZ(5px);
+}
+
+/* 종이 내부 선 효과 */
+.folder-paper:before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    background-color: #ddd;
+    left: 10%;
+    top: 30%;
+}
+
+.folder-paper:after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    background-color: #ddd;
+    left: 10%;
+    top: 60%;
+}
+
+/* 폴더에 약간의 질감 추가 */
+.folder-texture {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(0, 0, 0, 0.05) 100%);
+    z-index: 3;
 }
 
 .table-name {
