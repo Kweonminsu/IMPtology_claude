@@ -1,11 +1,34 @@
 from datetime import date
 from typing import List, Optional, Dict, Any
-import json
+from pydantic import BaseModel
+
+
+class NoticeData(BaseModel):
+    """공지사항 데이터 모델"""
+
+    title: str
+    content: str
 
 
 class NoticeService:
+    """
+    공지사항 서비스 클래스
+    샘플 데이터를 제공하고 CRUD 기능을 구현합니다.
+    나중에 DB 연결 시 이 클래스의 메소드만 수정하면 됩니다.
+    """
+
     def __init__(self):
-        # 샘플 데이터 (실제로는 DB 사용)
+        """
+        샘플 공지사항 데이터 초기화
+
+        주의: 실제 DB 연결 시 이 부분은 제거하고 DB 연결 코드로 대체해야 합니다.
+
+        DB 연결 예시:
+        def __init__(self):
+            self.db_engine = create_engine(settings.DATABASE_URL)
+            self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.db_engine)
+        """
+        # 샘플 데이터 (DB 연결 시 제거)
         self.notices = [
             {
                 "id": 1,
@@ -17,19 +40,19 @@ class NoticeService:
             },
             {
                 "id": 2,
-                "title": "5월 시스템 점검 안내",
-                "content": "안녕하세요, IMPtology 서비스 이용자 여러분.\n\n다음과 같이 5월 정기 시스템 점검이 진행될 예정입니다.\n\n일시: 2025년 5월 10일 02:00 ~ 06:00\n영향: 서비스 전체 이용 불가\n\n이용에 참고하시기 바랍니다.\n\n감사합니다.",
-                "author": "시스템 관리자",
+                "title": "5월 시스템 정기 점검 안내",
+                "content": "안녕하세요, IMPtology 관리자입니다.\n\n5월 10일 오전 2시부터 4시까지 시스템 정기 점검이 있을 예정입니다.\n\n해당 시간에는 서비스 이용이 제한될 수 있으니 양해 부탁드립니다.",
+                "author": "관리자",
                 "date": date(2025, 5, 3),
-                "views": 152,
+                "views": 156,
             },
             {
                 "id": 3,
-                "title": "새로운 데이터셋 추가 안내",
-                "content": "IMPtology 서비스에 새로운 산업 데이터셋이 추가되었습니다.\n\n- 2024년 국내 자동차 산업 생산량 데이터\n- 2024년 반도체 산업 수출입 현황\n- 2023-2024 신재생에너지 설비 투자 현황\n\n데이터 브라우저에서 확인하실 수 있습니다.",
-                "author": "데이터 관리자",
+                "title": "데이터 연동 API 업데이트 안내",
+                "content": "IMPtology API가 업데이트되었습니다.\n\n주요 변경사항:\n- 응답 속도 개선\n- 신규 데이터 유형 추가\n- 인증 방식 강화\n\n자세한 내용은 개발자 문서를 참고해주세요.",
+                "author": "개발팀",
                 "date": date(2025, 5, 2),
-                "views": 178,
+                "views": 89,
             },
             {
                 "id": 4,
@@ -54,68 +77,175 @@ class NoticeService:
     ) -> List[Dict[str, Any]]:
         """
         공지사항 목록을 조회합니다.
-        검색어가 제공된 경우 제목이나 내용에서 검색합니다.
+
+        Args:
+            skip (int): 건너뛸 항목 수
+            limit (int): 가져올 항목 수
+            search (str, optional): 검색어
+
+        Returns:
+            List[Dict]: 공지사항 목록
+
+        DB 연결 시 코드 예시:
+        def get_notices(self, skip: int = 0, limit: int = 10, search: Optional[str] = None):
+            with self.SessionLocal() as db:
+                query = select(Notice)
+
+                if search:
+                    query = query.where(
+                        or_(
+                            Notice.title.ilike(f"%{search}%"),
+                            Notice.content.ilike(f"%{search}%")
+                        )
+                    )
+
+                query = query.order_by(desc(Notice.date))
+                query = query.offset(skip).limit(limit)
+
+                result = db.execute(query)
+                notices = result.scalars().all()
+                return [notice.to_dict() for notice in notices]
         """
+        filtered_notices = self.notices.copy()
+
+        # 검색어가 있으면 필터링
         if search:
             search = search.lower()
             filtered_notices = [
                 notice
-                for notice in self.notices
+                for notice in filtered_notices
                 if search in notice["title"].lower()
                 or search in notice["content"].lower()
             ]
-        else:
-            filtered_notices = self.notices.copy()
 
-        # 최신순 정렬
+        # 날짜 기준 내림차순 정렬 (최신순)
         filtered_notices.sort(key=lambda x: x["date"], reverse=True)
 
-        # 페이지네이션
+        # 페이지네이션 적용
         return filtered_notices[skip : skip + limit]
 
     def get_notice(self, notice_id: int) -> Optional[Dict[str, Any]]:
         """
         특정 ID의 공지사항을 조회합니다.
+
+        Args:
+            notice_id (int): 조회할 공지사항 ID
+
+        Returns:
+            Dict: 공지사항 정보 또는 None
+
+        DB 연결 시 코드 예시:
+        def get_notice(self, notice_id: int):
+            with self.SessionLocal() as db:
+                notice = db.query(Notice).filter(Notice.id == notice_id).first()
+                return notice.to_dict() if notice else None
         """
         for notice in self.notices:
             if notice["id"] == notice_id:
                 return notice
         return None
 
-    def create_notice(self, notice_data) -> Dict[str, Any]:
+    def create_notice(self, notice_data: Any) -> Dict[str, Any]:
         """
         새 공지사항을 생성합니다.
+
+        Args:
+            notice_data: 생성할 공지사항 데이터
+
+        Returns:
+            Dict: 생성된 공지사항 정보
+
+        DB 연결 시 코드 예시:
+        def create_notice(self, notice_data: Any):
+            with self.SessionLocal() as db:
+                new_notice = Notice(
+                    title=notice_data.title,
+                    content=notice_data.content,
+                    author="관리자",  # 실제로는 인증된 사용자 정보 사용
+                    date=date.today(),
+                    views=0
+                )
+                db.add(new_notice)
+                db.commit()
+                db.refresh(new_notice)
+                return new_notice.to_dict()
         """
-        # 새 ID 생성
+        # 새 ID 생성 (현재 ID 중 최대값 + 1)
         new_id = max([notice["id"] for notice in self.notices], default=0) + 1
 
+        # 새 공지사항 생성
         new_notice = {
             "id": new_id,
             "title": notice_data.title,
             "content": notice_data.content,
-            "author": "관리자",  # 실제로는 로그인한 관리자 이름
+            "author": "관리자",  # 실제로는 인증된 사용자 정보 사용
             "date": date.today(),
             "views": 0,
         }
 
+        # 목록에 추가
         self.notices.append(new_notice)
         return new_notice
 
-    def update_notice(self, notice_id: int, notice_data) -> Optional[Dict[str, Any]]:
+    def update_notice(
+        self, notice_id: int, notice_data: Any
+    ) -> Optional[Dict[str, Any]]:
         """
         공지사항을 수정합니다.
+
+        Args:
+            notice_id (int): 수정할 공지사항 ID
+            notice_data: 수정할 데이터
+
+        Returns:
+            Dict: 수정된 공지사항 정보 또는 None
+
+        DB 연결 시 코드 예시:
+        def update_notice(self, notice_id: int, notice_data: Any):
+            with self.SessionLocal() as db:
+                notice = db.query(Notice).filter(Notice.id == notice_id).first()
+                if not notice:
+                    return None
+
+                notice.title = notice_data.title
+                notice.content = notice_data.content
+                # 수정일을 업데이트할 수도 있음
+                # notice.updated_at = datetime.now()
+
+                db.commit()
+                db.refresh(notice)
+                return notice.to_dict()
         """
         for i, notice in enumerate(self.notices):
             if notice["id"] == notice_id:
+                # 제목과 내용 업데이트
                 self.notices[i]["title"] = notice_data.title
                 self.notices[i]["content"] = notice_data.content
-                # 수정일을 현재 날짜로 업데이트할 수도 있음
+                # 필요한 경우 수정일 업데이트
+                # self.notices[i]["updated_at"] = date.today()
                 return self.notices[i]
         return None
 
     def delete_notice(self, notice_id: int) -> bool:
         """
         공지사항을 삭제합니다.
+
+        Args:
+            notice_id (int): 삭제할 공지사항 ID
+
+        Returns:
+            bool: 삭제 성공 여부
+
+        DB 연결 시 코드 예시:
+        def delete_notice(self, notice_id: int):
+            with self.SessionLocal() as db:
+                notice = db.query(Notice).filter(Notice.id == notice_id).first()
+                if not notice:
+                    return False
+
+                db.delete(notice)
+                db.commit()
+                return True
         """
         for i, notice in enumerate(self.notices):
             if notice["id"] == notice_id:
@@ -126,6 +256,23 @@ class NoticeService:
     def increase_view_count(self, notice_id: int) -> bool:
         """
         공지사항 조회수를 증가시킵니다.
+
+        Args:
+            notice_id (int): 조회수를 증가시킬 공지사항 ID
+
+        Returns:
+            bool: 조회수 증가 성공 여부
+
+        DB 연결 시 코드 예시:
+        def increase_view_count(self, notice_id: int):
+            with self.SessionLocal() as db:
+                notice = db.query(Notice).filter(Notice.id == notice_id).first()
+                if not notice:
+                    return False
+
+                notice.views += 1
+                db.commit()
+                return True
         """
         for i, notice in enumerate(self.notices):
             if notice["id"] == notice_id:

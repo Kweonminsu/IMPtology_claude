@@ -41,40 +41,34 @@ document.addEventListener('DOMContentLoaded', function() {
  * 테이블 목록을 서버에서 비동기적으로 가져오는 함수
  * API 호출을 통해 사용 가능한 데이터 테이블 목록을 가져와서 드롭다운에 표시함
  */
+/**
+ * 테이블 목록을 서버에서 비동기적으로 가져오는 함수
+ */
 async function loadTables() {
   try {
-    // 1. 서버의 API 엔드포인트로 HTTP 요청 전송
-    const response = await fetch('/data_query/tables'); // 수정된 경로
+    // API 엔드포인트로 HTTP 요청 전송 (현재 파일 구조에 맞게 수정)
+    const response = await fetch('/v1/data-browser-query/tables');
 
-    // 2. 응답 상태 확인 (200-299 범위가 아니면 오류로 처리)
     if (!response.ok) {
       throw new Error('테이블 목록을 불러오는데 실패했습니다.');
     }
 
-    // 3. 응답 데이터를 JSON으로 파싱하여 테이블 목록 배열 가져오기
     tables = await response.json();
 
-    // 4. 테이블 선택 드롭다운 초기화 (value 속성이 있는 option 태그 생성)
+    // 테이블 선택 옵션 생성
     tableSelect.innerHTML = '<option value="">테이블을 선택하세요</option>';
 
-    // 5. 각 테이블마다 option 태그 생성하여 드롭다운에 추가
     tables.forEach(table => {
       const option = document.createElement('option');
-      // 테이블의 식별자를 값으로 설정
       option.value = table.name;
-      // 표시 이름과 실제 이름을 함께 보여주어 사용자 편의성 확보
       option.textContent = `${table.displayName} (${table.name})`;
-      // 생성한 옵션을 select 요소에 추가
       tableSelect.appendChild(option);
     });
   } catch (error) {
-    // 6. 오류 처리: 콘솔에 자세한 오류 로그 남기기
     console.error('테이블 로드 오류:', error);
-    // 7. 사용자에게 오류 메시지 표시
     alert('테이블 목록을 불러오는데 실패했습니다.');
   }
 }
-
 
 
   // 테이블 정보 가져오기

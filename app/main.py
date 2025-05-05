@@ -15,8 +15,8 @@ from app.v1.endpoints import (
     reports,
     notices,
     datasets,
-    data_query,
-    data_query_table,
+    data_browser_query,
+    data_browser_table,
 )
 from app.core.config import settings
 
@@ -49,11 +49,11 @@ templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 # app.include_router(reports.router, prefix="/api/v1/reports", tags=["리포트"])
 # 새로 추가한 테이블 정보 라우터
 app.include_router(
-    data_query_table.router, prefix="/api/v1/data-browser", tags=["테이블정보"]
+    data_browser_table.router, prefix="/api/v1/data-browser", tags=["테이블정보"]
 )
 app.include_router(notices.router, prefix="/api/v1/notices", tags=["공지사항"])
 app.include_router(
-    data_query.router, prefix="/api/v1/data-browser", tags=["데이터조회"]
+    data_browser_query.router, prefix="/api/v1/data-browser", tags=["데이터조회"]
 )
 
 
