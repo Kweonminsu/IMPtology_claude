@@ -4,10 +4,14 @@
   rel="stylesheet"
   href="{{ url_for('static', path='/css/data_browser_tables.css') }}"
 />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 {% endblock %} {% block content %}
 <div class="tables-container">
   <div class="tables-header">
-    <h2>테이블 정보</h2>
+    <h2>데이터베이스 테이블 목록</h2>
     <div class="search-bar">
       <input type="text" id="table-search" placeholder="테이블 검색..." />
       <button class="search-btn"><i class="fas fa-search"></i></button>

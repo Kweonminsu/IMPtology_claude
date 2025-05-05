@@ -100,7 +100,8 @@ async def notices_page(request: Request):
     is_admin = False  # 일반 사용자로 설정 (테스트할 때 True/False 전환)
 
     return templates.TemplateResponse(
-        "pages/notices.html", {"request": request, "is_admin": is_admin}
+        "pages/notices.html",
+        {"request": request, "is_admin": is_admin, "page_title": "공지사항"},
     )
 
 

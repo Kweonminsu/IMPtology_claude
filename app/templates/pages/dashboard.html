@@ -1,14 +1,10 @@
-{% extends "base.html" %}
-
-{% block title %}IMPtology - 대시보드{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', path='css/dashboard.css') }}">
-{% endblock %}
-
-{% block page_title %}대시보드{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}IMPtology - 대시보드{% endblock %} {%
+block extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', path='css/dashboard.css') }}"
+/>
+{% endblock %} {% block page_title %}대시보드{% endblock %} {% block content %}
 <div class="dashboard">
   <div class="dashboard-header">
     <div class="time-period-selector">
@@ -18,7 +14,12 @@
       <button class="time-button">분기</button>
       <button class="time-button">연간</button>
       <button class="time-button custom">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="16" y1="2" x2="16" y2="6"></line>
           <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -31,10 +32,17 @@
     <div class="refresh-control">
       <span class="last-updated">최종 업데이트: 5분 전</span>
       <button class="refresh-button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <path d="M23 4v6h-6"></path>
           <path d="M1 20v-6h6"></path>
-          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          <path
+            d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
+          ></path>
         </svg>
         새로고침
       </button>
@@ -44,8 +52,15 @@
   <div class="metrics-overview">
     <div class="metric-card">
       <div class="metric-icon data-sources">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+          ></path>
           <polyline points="3.29 7 12 12 20.71 7"></polyline>
           <line x1="12" y1="22" x2="12" y2="12"></line>
         </svg>
@@ -54,7 +69,12 @@
         <div class="metric-title">데이터 소스</div>
         <div class="metric-value">42</div>
         <div class="metric-change positive">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <polyline points="18 15 12 9 6 15"></polyline>
           </svg>
           <span>+8%</span>
@@ -64,7 +84,12 @@
 
     <div class="metric-card">
       <div class="metric-icon data-tables">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
           <path d="M2 17l10 5 10-5"></path>
           <path d="M2 12l10 5 10-5"></path>
@@ -74,7 +99,12 @@
         <div class="metric-title">데이터 테이블</div>
         <div class="metric-value">156</div>
         <div class="metric-change positive">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <polyline points="18 15 12 9 6 15"></polyline>
           </svg>
           <span>+12%</span>
@@ -84,7 +114,12 @@
 
     <div class="metric-card">
       <div class="metric-icon insights">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
           <circle cx="12" cy="12" r="3"></circle>
         </svg>
@@ -93,7 +128,12 @@
         <div class="metric-title">생성된 인사이트</div>
         <div class="metric-value">827</div>
         <div class="metric-change positive">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <polyline points="18 15 12 9 6 15"></polyline>
           </svg>
           <span>+23%</span>
@@ -103,7 +143,12 @@
 
     <div class="metric-card">
       <div class="metric-icon reports">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon>
           <line x1="3" y1="22" x2="21" y2="22"></line>
         </svg>
@@ -112,7 +157,12 @@
         <div class="metric-title">리포트 생성</div>
         <div class="metric-value">63</div>
         <div class="metric-change negative">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
           <span>-5%</span>
@@ -127,7 +177,12 @@
         <h3 class="card-title">데이터 소스 활용 현황</h3>
         <div class="card-actions">
           <button class="card-action-button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="12" cy="12" r="1"></circle>
               <circle cx="19" cy="12" r="1"></circle>
               <circle cx="5" cy="12" r="1"></circle>
@@ -139,7 +194,10 @@
         <div class="chart-container">
           <div class="chart-legend">
             <div class="legend-item">
-              <div class="legend-color" style="background-color: var(--primary-color)"></div>
+              <div
+                class="legend-color"
+                style="background-color: var(--primary-color)"
+              ></div>
               <div class="legend-label">생산 데이터</div>
             </div>
             <div class="legend-item">
@@ -180,7 +238,12 @@
         <h3 class="card-title">데이터 분석</h3>
         <div class="card-actions">
           <button class="card-action-button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="12" cy="12" r="1"></circle>
               <circle cx="19" cy="12" r="1"></circle>
               <circle cx="5" cy="12" r="1"></circle>
@@ -220,7 +283,12 @@
         <h3 class="card-title">리포트</h3>
         <div class="card-actions">
           <button class="card-action-button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="12" cy="12" r="1"></circle>
               <circle cx="19" cy="12" r="1"></circle>
               <circle cx="5" cy="12" r="1"></circle>
@@ -232,8 +300,15 @@
         <div class="insights-list">
           <div class="insight-item">
             <div class="insight-icon critical">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                ></path>
                 <line x1="12" y1="9" x2="12" y2="13"></line>
                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
               </svg>
@@ -253,7 +328,12 @@
 
           <div class="insight-item">
             <div class="insight-icon warning">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="12"></line>
                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -274,7 +354,12 @@
 
           <div class="insight-item">
             <div class="insight-icon positive">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
@@ -300,7 +385,12 @@
         <h3 class="card-title">데이터 테이블 활용 상위 10개</h3>
         <div class="card-actions">
           <button class="card-action-button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
               <circle cx="12" cy="12" r="1"></circle>
               <circle cx="19" cy="12" r="1"></circle>
               <circle cx="5" cy="12" r="1"></circle>
@@ -394,8 +484,6 @@
     </div>
   </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
 {% endblock %}
