@@ -7,7 +7,17 @@ from pathlib import Path
 
 # 라우터 추가
 # API 라우터 임포트
-from app.v1.endpoints import auth, users, datasets, insights, reports, notices
+from app.v1.endpoints import (
+    auth,
+    users,
+    datasets,
+    insights,
+    reports,
+    notices,
+    datasets,
+    data_query,
+    data_query_table,
+)
 from app.core.config import settings
 
 # from app.v1.endpoints import notices
@@ -37,7 +47,14 @@ templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 # app.include_router(datasets.router, prefix="/api/v1/datasets", tags=["데이터셋"])
 # app.include_router(insights.router, prefix="/api/v1/insights", tags=["인사이트"])
 # app.include_router(reports.router, prefix="/api/v1/reports", tags=["리포트"])
+# 새로 추가한 테이블 정보 라우터
+app.include_router(
+    data_query_table.router, prefix="/api/v1/data-browser", tags=["테이블정보"]
+)
 app.include_router(notices.router, prefix="/api/v1/notices", tags=["공지사항"])
+app.include_router(
+    data_query.router, prefix="/api/v1/data-browser", tags=["데이터조회"]
+)
 
 
 @app.get("/")
@@ -112,6 +129,16 @@ async def not_found_exception_handler(request: Request, exc):
         "pages/404.html",
         {"request": request, "page_title": "페이지를 찾을 수 없습니다"},
         status_code=404,
+    )
+
+
+from fastapi.responses import HTMLResponse
+
+
+@app.get("/data-browser/query", response_class=HTMLResponse)
+async def data_browser_query(request: Request):
+    return templates.TemplateResponse(
+        "pages/data_browser_query.html", {"request": request}
     )
 
 
