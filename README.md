@@ -122,3 +122,10 @@
         f.write("```\n")
         f.write("\n".join(tree_lines))
         f.write("\n```")
+
+
+## 설치
+    python -m venv venv
+    venv\Scripts\activate
+    pip install --upgrade pip
+    pip install -r requirements.txt

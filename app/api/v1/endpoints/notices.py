@@ -29,7 +29,7 @@ class Notice(NoticeBase):
     views: int
 
     class Config:
-        orm_mode = True
+        model_config = {"from_attributes": True}
 
 
 # 모든 공지사항 조회
