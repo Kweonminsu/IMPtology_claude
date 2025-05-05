@@ -73,12 +73,12 @@ async def dashboard(request: Request):
     )
 
 
-@app.get("/data-browser")
-async def data_browser(request: Request):
-    """데이터 브라우저 페이지를 표시합니다."""
-    return templates.TemplateResponse(
-        "pages/data_browser.html", {"request": request, "page_title": "데이터브라우저"}
-    )
+# @app.get("/data-browser")
+# async def data_browser(request: Request):
+#     """데이터 브라우저 페이지를 표시합니다."""
+#     return templates.TemplateResponse(
+#         "pages/data_browser.html", {"request": request, "page_title": "데이터브라우저"}
+#     )
 
 
 @app.get("/data-browser/tables")
@@ -138,7 +138,8 @@ from fastapi.responses import HTMLResponse
 @app.get("/data-browser/query", response_class=HTMLResponse)
 async def data_browser_query(request: Request):
     return templates.TemplateResponse(
-        "pages/data_browser_query.html", {"request": request}
+        "pages/data_browser_query.html",
+        {"request": request, "page_title": "검색 서비스"},
     )
 
 

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // DOM 요소
+  const API_BASE_URL = '/api/v1/data-browser';
   const tableSelect = document.getElementById('table-select');
   const columnsSection = document.getElementById('columns-section');
   const columnsContainer = document.getElementById('columns-container');
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadTables() {
   try {
     // API 엔드포인트로 HTTP 요청 전송 (현재 파일 구조에 맞게 수정)
-    const response = await fetch('/v1/data-browser-query/tables');
+const response = await fetch(`${API_BASE_URL}/tables`);
 
     if (!response.ok) {
       throw new Error('테이블 목록을 불러오는데 실패했습니다.');
