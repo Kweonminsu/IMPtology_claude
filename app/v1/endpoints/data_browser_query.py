@@ -69,19 +69,11 @@ class QueryRequest(BaseModel):
     pageSize: int = 20
 
 
-from pydantic import BaseModel
-from typing import List, Dict, Any
-
-
 class QueryResponse(BaseModel):
     data: List[Dict[str, Any]]
     total: int
     page: int
     pageSize: int
-
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {dict: lambda v: dict(v)}
 
 
 # 샘플 테이블 데이터
