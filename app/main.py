@@ -10,11 +10,9 @@ from pathlib import Path
 from app.v1.endpoints import (
     auth,
     users,
-    datasets,
     insights,
     reports,
     notices,
-    datasets,
     data_browser_query,
     data_browser_table,
 )
@@ -28,6 +26,17 @@ app = FastAPI(
     title="IMPtology",
     description="데이터 온톨로지 기반 의사결정 플랫폼",
     version="1.0.0",
+)
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "*"
+    ],  # 어떤 origin에서도 접근 허용 ( 백엔드 API 도메인으로 수정할 것 ex:allow_origins=["https://yourfrontend.com"])
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # 정적 파일 디렉토리 마운트
