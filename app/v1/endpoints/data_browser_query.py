@@ -18,7 +18,10 @@ from datetime import datetime
 import random
 import json
 
-router = APIRouter(prefix="/api/datasets", tags=["datasets"])
+# CORS 미들웨어 추가 (최상단에 추가)
+from fastapi.middleware.cors import CORSMiddleware
+
+router = APIRouter()
 
 # 데이터베이스 연결 설정
 # 주석: 실제 환경에서는 아래 코드를 환경에 맞게 수정하세요.
@@ -66,11 +69,19 @@ class QueryRequest(BaseModel):
     pageSize: int = 20
 
 
+from pydantic import BaseModel
+from typing import List, Dict, Any
+
+
 class QueryResponse(BaseModel):
     data: List[Dict[str, Any]]
     total: int
     page: int
     pageSize: int
+
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {dict: lambda v: dict(v)}
 
 
 # 샘플 테이블 데이터
@@ -653,5 +664,27 @@ async def query_data(request: QueryRequest):
             "pageSize": request.pageSize,
         }
 
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# 샘플 데이터 엔드포인트 수정
+@router.get("/sample/{table_name}")
+async def get_sample_data(table_name: str):
+    try:
+        # 테이블 존재 여부 확인
+        table = next((t for t in sample_tables if t["name"] == table_name), None)
+        if not table:
+            raise HTTPException(
+                status_code=404, detail=f"테이블 '{table_name}'을 찾을 수 없습니다."
+            )
+
+        # 테이블의 모든 컬럼 가져오기
+        columns = [col["name"] for col in table["columns"]]
+
+        # 샘플 데이터 5개 생성
+        data = generate_sample_data(table_name, columns, 1, 5)[0]
+
+        return {"table": table["displayName"], "columns": columns, "data": data}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

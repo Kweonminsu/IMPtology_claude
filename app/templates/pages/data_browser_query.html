@@ -1,112 +1,100 @@
 {% extends "base.html" %}
-{% block title %}IMPtology - 검색 서비스{% endblock %}
+
+{% block title %}IMPtology - 데이터 검색{% endblock %}
 
 {% block page_title %}데이터 검색 서비스{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', path='css/data_browser_query.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
 
 {% block content %}
-<div class="search-bar">
-  <div class="table-select-container">
-    <label for="table-select">데이터 테이블</label>
-    <select id="table-select" class="form-control">
-      <option value="">테이블을 선택하세요</option>
-    </select>
-  </div>
-  <div class="form-actions">
-    <button id="search-btn" class="btn btn-primary" disabled>
-      <i class="fas fa-search"></i> 검색
-    </button>
-    <button id="reset-btn" class="btn btn-secondary">
-      <i class="fas fa-redo"></i> 초기화
-    </button>
-  </div>
+<div class="container">
+    <!-- 테이블 선택 섹션 -->
+    <div class="section">
+        <h3>🔍 데이터 테이블 선택</h3>
+        <select id="table-select" class="form-control">
+            <option value="">테이블을 선택하세요</option>
+        </select>
+    </div>
+
+    <!-- 컬럼 선택 섹션 -->
+    <div id="columns-section" class="section">
+        <div class="section-header">
+            <h3>📌 컬럼 선택</h3>
+            <div class="button-group">
+                <button id="select-all-columns" class="btn btn-secondary">전체 선택</button>
+                <button id="deselect-all-columns" class="btn btn-secondary">전체 해제</button>
+            </div>
+        </div>
+        <div id="columns-container" class="columns-grid"></div>
+    </div>
+
+    <!-- 필터 섹션 -->
+    <div id="filters-section" class="section">
+        <div class="section-header">
+            <h3>⚙️ 검색 조건 설정</h3>
+            <button id="add-filter-btn" class="btn btn-secondary">+ 조건 추가</button>
+        </div>
+        <div id="filters-container"></div>
+
+        <!-- 액션 버튼 그룹 -->
+        <div class="action-buttons">
+            <button id="search-btn" class="btn btn-primary" disabled>검색 실행</button>
+            <button id="sample-data-btn" class="btn btn-secondary">예시 데이터 보기</button>
+            <button id="reset-btn" class="btn btn-warning">초기화</button>
+        </div>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div id="results-panel" class="section">
+        <div class="results-header">
+            <h3>📊 검색 결과</h3>
+            <button id="export-csv-btn" class="btn btn-success">CSV 내보내기</button>
+        </div>
+        <div class="results-table-container">
+            <table class="results-table">
+                <thead id="results-table-head"></thead>
+                <tbody id="results-table-body"></tbody>
+            </table>
+        </div>
+        <div id="pagination-container" class="pagination"></div>
+    </div>
 </div>
 
-<div class="query-container">
-  <div class="query-panel">
-    <div class="panel-section" id="columns-section" style="display: none;">
-      <h3>조회 컬럼 선택</h3>
-      <div class="columns-container" id="columns-container">
-        <!-- 자바스크립트로 컬럼 체크박스가 추가됩니다 -->
-      </div>
-      <div class="form-actions">
-        <button id="select-all-columns" class="btn btn-secondary">모두 선택</button>
-        <button id="deselect-all-columns" class="btn btn-secondary">모두 해제</button>
-      </div>
-    </div>
-
-    <div class="panel-section" id="filters-section" style="display: none;">
-      <h3>검색 조건 설정</h3>
-      <div id="filters-container">
-        <!-- 자바스크립트로 필터 조건이 추가됩니다 -->
-      </div>
-      <button id="add-filter-btn" class="btn btn-secondary">
-        <i class="fas fa-plus"></i> 조건 추가
-      </button>
-    </div>
-  </div>
-
-  <div class="results-panel" id="results-panel" style="display: none;">
-    <div class="results-header">
-      <h3>검색 결과</h3>
-      <div class="results-actions">
-        <span id="result-count">0개의 레코드</span>
-        <button id="export-csv-btn" class="btn btn-secondary">
-          <i class="fas fa-download"></i> CSV 내보내기
-        </button>
-      </div>
-    </div>
-
-    <div class="results-table-container">
-      <table id="results-table" class="results-table">
-        <thead id="results-table-head">
-          <!-- 자바스크립트로 테이블 헤더가 추가됩니다 -->
-        </thead>
-        <tbody id="results-table-body">
-          <!-- 자바스크립트로 테이블 데이터가 추가됩니다 -->
-        </tbody>
-      </table>
-    </div>
-
-    <div class="pagination-container" id="pagination-container">
-      <!-- 자바스크립트로 페이지네이션이 추가됩니다 -->
-    </div>
-  </div>
-</div>
-
-<!-- 템플릿 요소: 필터 조건 -->
+<!-- 필터 템플릿 -->
 <template id="filter-template">
-  <div class="filter-item">
-    <div class="filter-row">
-      <select class="filter-column form-control">
-        <option value="">컬럼 선택</option>
-      </select>
-      <select class="filter-operator form-control">
-        <option value="eq">같음 (=)</option>
-        <option value="neq">같지 않음 (!=)</option>
-        <option value="gt">초과 (>)</option>
-        <option value="gte">이상 (>=)</option>
-        <option value="lt">미만 (<)</option>
-        <option value="lte">이하 (<=)</option>
-        <option value="contains">포함</option>
-        <option value="startswith">시작 문자</option>
-        <option value="endswith">끝 문자</option>
-        <option value="isnull">NULL</option>
-        <option value="isnotnull">NOT NULL</option>
-      </select>
-      <input type="text" class="filter-value form-control" placeholder="값 입력">
-      <button class="remove-filter-btn btn btn-icon">
-        <i class="fas fa-times"></i>
-      </button>
+    <div class="filter-item">
+        <div class="filter-controls">
+            <select class="filter-column">
+                <option value="">컬럼 선택</option>
+            </select>
+            <select class="filter-operator">
+                <option value="">연산자 선택</option>
+            </select>
+            <input type="text" class="filter-value" placeholder="값 입력">
+            <button class="btn btn-danger remove-filter-btn">×</button>
+        </div>
     </div>
-  </div>
 </template>
 
-<!-- 자바스크립트 -->
+<!-- 예시 데이터 모달 -->
+<div id="sample-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>📋 예시 데이터 (최근 5건)</h3>
+            <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <table id="sample-table">
+                <thead id="sample-table-head"></thead>
+                <tbody id="sample-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block extra_js %}
 <script src="{{ url_for('static', path='js/data_browser_query.js') }}"></script>
-{% endblock %}
 {% endblock %}

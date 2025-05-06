@@ -277,7 +277,7 @@ const response = await fetch(`${API_BASE_URL}/tables`);
 
     // 검색 요청
     try {
-      const response = await fetch('/api/datasets/query', {
+      const response = await fetch(`${API_BASE_URL}/query`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
