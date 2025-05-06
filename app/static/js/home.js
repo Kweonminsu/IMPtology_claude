@@ -3,6 +3,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const features = document.querySelectorAll(".feature-card");
   const visionText = document.querySelectorAll(".vision-text p");
 
+  function animateTitle() {
+    const topText = document.querySelector('.top-text');
+    const bottomText = document.querySelector('.bottom-text');
+    const logoText = document.querySelector('.logo-text');
+
+    setTimeout(() => topText.classList.add('active'), 500);
+    setTimeout(() => bottomText.classList.add('active'), 1000);
+    setTimeout(() => {
+      topText.classList.add('split');
+      bottomText.classList.add('split');
+    }, 1800);
+    setTimeout(() => logoText.classList.add('active'), 2200);
+  }
+ animateTitle();
+
   // 스크롤 이벤트에 따른 애니메이션 효과
   function checkScroll() {
     const triggerBottom = window.innerHeight * 0.8;
