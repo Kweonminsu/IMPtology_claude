@@ -124,6 +124,7 @@ async def notices_page(request: Request):
     # 실제 구현에서는 사용자 인증 및 권한 확인 로직 필요
     # 지금은 임시로 관리자 여부를 설정 (테스트용)
     is_admin = False  # 일반 사용자로 설정 (테스트할 때 True/False 전환)
+    is_admin = True  # 일반 사용자로 설정 (테스트할 때 True/False 전환)
 
     return templates.TemplateResponse(
         "pages/notices.html",

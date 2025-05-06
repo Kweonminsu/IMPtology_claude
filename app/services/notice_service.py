@@ -31,7 +31,7 @@ class NoticeService:
         # 샘플 데이터 (DB 연결 시 제거)
         self.notices = [
             {
-                "id": 1,
+                "id": 3,
                 "title": "IMPtology 서비스 오픈 안내",
                 "content": "안녕하세요, IMPtology 서비스가 정식으로 오픈되었습니다.\n\n앞으로 많은 관심과 이용 부탁드립니다.\n\n감사합니다.",
                 "author": "관리자",
@@ -39,7 +39,7 @@ class NoticeService:
                 "views": 234,
             },
             {
-                "id": 2,
+                "id": 5,
                 "title": "5월 시스템 정기 점검 안내",
                 "content": "안녕하세요, IMPtology 관리자입니다.\n\n5월 10일 오전 2시부터 4시까지 시스템 정기 점검이 있을 예정입니다.\n\n해당 시간에는 서비스 이용이 제한될 수 있으니 양해 부탁드립니다.",
                 "author": "관리자",
@@ -47,7 +47,7 @@ class NoticeService:
                 "views": 156,
             },
             {
-                "id": 3,
+                "id": 4,
                 "title": "데이터 연동 API 업데이트 안내",
                 "content": "IMPtology API가 업데이트되었습니다.\n\n주요 변경사항:\n- 응답 속도 개선\n- 신규 데이터 유형 추가\n- 인증 방식 강화\n\n자세한 내용은 개발자 문서를 참고해주세요.",
                 "author": "개발팀",
@@ -55,7 +55,7 @@ class NoticeService:
                 "views": 89,
             },
             {
-                "id": 4,
+                "id": 2,
                 "title": "사용자 가이드 업데이트",
                 "content": "IMPtology 서비스 사용자 가이드가 업데이트되었습니다.\n\n주요 업데이트 내용:\n1. 데이터 시각화 기능 활용 가이드\n2. 데이터 내보내기 기능 상세 설명\n3. 인사이트 분석 결과 해석 방법\n\n사용자 가이드는 홈페이지 하단의 '도움말' 메뉴에서 확인하실 수 있습니다.",
                 "author": "IMPtology 팀",
@@ -63,7 +63,7 @@ class NoticeService:
                 "views": 103,
             },
             {
-                "id": 5,
+                "id": 1,
                 "title": "API 서비스 베타 오픈",
                 "content": "IMPtology API 서비스가 베타 버전으로 오픈되었습니다.\n\nAPI를 통해 IMPtology의 데이터를 외부 시스템과 연동하여 활용할 수 있습니다.\n\n베타 기간 동안에는 무료로 이용 가능하며, 정식 버전 출시 후에는 유료 서비스로 전환될 예정입니다.\n\nAPI 문서: https://api.imptology.com/docs",
                 "author": "개발팀",
