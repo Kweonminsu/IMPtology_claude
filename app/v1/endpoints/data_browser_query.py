@@ -537,7 +537,7 @@ async def get_tables():
     return sample_tables
 
 
-# 데이터 쿼리 엔드포인트
+# 데이터 쿼리 엔드포인트 << 실제 반영 예정.
 @router.post("/query", response_model=QueryResponse)
 async def query_data(request: QueryRequest):
     """
