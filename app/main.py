@@ -15,6 +15,7 @@ from app.v1.endpoints import (
     notices,
     data_browser_query,
     data_browser_table,
+    analysis,
 )
 from app.core.config import settings
 
@@ -64,6 +65,7 @@ app.include_router(notices.router, prefix="/api/v1/notices", tags=["공지사항
 app.include_router(
     data_browser_query.router, prefix="/api/v1/data-browser", tags=["데이터조회"]
 )
+app.include_router(analysis.router, prefix="/api/analysis", tags=["analysis"])
 
 
 @app.get("/")

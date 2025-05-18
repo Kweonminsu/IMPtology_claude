@@ -9,7 +9,6 @@ import json
 import os
 
 # Import the analysis router
-from analysis_router import router as analysis_router
 
 # Setup logging
 logging.basicConfig(

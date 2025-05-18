@@ -6,44 +6,50 @@
     <h1>데이터 분석</h1>
     <p class="subtitle">테이블 결합으로 인사이트를 도출하세요</p>
   </div>
-
   <div class="analysis-grid">
     <!-- 테이블 선택 영역 -->
     <div class="analysis-panel table-selection-panel">
-      <h2>데이터 테이블 선택</h2>
-      <div class="table-selection">
-        <div class="table-checkbox">
-          <input type="checkbox" id="table-a" class="table-checkbox-input" value="A">
-          <label for="table-a">생산 데이터</label>
-          <span class="table-info" data-tooltip="제품 생산 데이터 (ID, 날짜, 생산량, 가동 시간)">i</span>
-        </div>
-        <div class="table-checkbox">
-          <input type="checkbox" id="table-b" class="table-checkbox-input" value="B">
-          <label for="table-b">품질 검사</label>
-          <span class="table-info" data-tooltip="제품 품질 검사 데이터 (ID, 라인번호, 합격여부, 불량유형)">i</span>
-        </div>
-        <div class="table-checkbox">
-          <input type="checkbox" id="table-c" class="table-checkbox-input" value="C">
-          <label for="table-c">설비 상태</label>
-          <span class="table-info" data-tooltip="설비 상태 데이터 (라인번호, 온도, 습도, 진동)">i</span>
-        </div>
-        <div class="table-checkbox">
-          <input type="checkbox" id="table-d" class="table-checkbox-input" value="D">
-          <label for="table-d">원자재 정보</label>
-          <span class="table-info" data-tooltip="원자재 정보 데이터 (ID, 원자재 종류, 원산지, 등급)">i</span>
-        </div>
+      <div class="panel-header" data-target="table-selection-content">
+        <h2>데이터 테이블 선택</h2>
+        <svg class="panel-toggle" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </div>
-
-      <div class="date-filter">
-        <h3>기간 설정</h3>
-        <div class="date-inputs">
-          <div class="date-field">
-            <label for="start-date">시작일</label>
-            <input type="date" id="start-date" class="date-input">
+      <div id="table-selection-content" class="panel-content">
+        <div class="table-selection">
+          <div class="table-checkbox">
+            <input type="checkbox" id="table-a" class="table-checkbox-input" value="A">
+            <label for="table-a">생산 데이터</label>
+            <span class="table-info" data-tooltip="제품 생산 데이터 (ID, 날짜, 생산량, 가동 시간)">i</span>
           </div>
-          <div class="date-field">
-            <label for="end-date">종료일</label>
-            <input type="date" id="end-date" class="date-input">
+          <div class="table-checkbox">
+            <input type="checkbox" id="table-b" class="table-checkbox-input" value="B">
+            <label for="table-b">품질 검사</label>
+            <span class="table-info" data-tooltip="제품 품질 검사 데이터 (ID, 라인번호, 합격여부, 불량유형)">i</span>
+          </div>
+          <div class="table-checkbox">
+            <input type="checkbox" id="table-c" class="table-checkbox-input" value="C">
+            <label for="table-c">설비 상태</label>
+            <span class="table-info" data-tooltip="설비 상태 데이터 (라인번호, 온도, 습도, 진동)">i</span>
+          </div>
+          <div class="table-checkbox">
+            <input type="checkbox" id="table-d" class="table-checkbox-input" value="D">
+            <label for="table-d">원자재 정보</label>
+            <span class="table-info" data-tooltip="원자재 정보 데이터 (ID, 원자재 종류, 원산지, 등급)">i</span>
+          </div>
+        </div>
+
+        <div class="date-filter">
+          <h3>기간 설정</h3>
+          <div class="date-inputs">
+            <div class="date-field">
+              <label for="start-date">시작일</label>
+              <input type="date" id="start-date" class="date-input">
+            </div>
+            <div class="date-field">
+              <label for="end-date">종료일</label>
+              <input type="date" id="end-date" class="date-input">
+            </div>
           </div>
         </div>
       </div>
@@ -51,55 +57,76 @@
 
     <!-- 조인 조건 영역 -->
     <div class="analysis-panel join-conditions-panel">
-      <h2>테이블 조인 조건</h2>
-      <div class="join-placeholder">테이블을 선택하면 조인 조건이 표시됩니다.</div>
-      <div class="join-conditions" id="join-conditions">
-        <!-- 자바스크립트로 동적 생성됨 -->
+      <div class="panel-header" data-target="join-conditions-content">
+        <h2>테이블 조인 조건</h2>
+        <svg class="panel-toggle" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+      <div id="join-conditions-content" class="panel-content">
+        <div class="join-placeholder">테이블을 선택하면 조인 조건이 표시됩니다.</div>
+        <div class="join-conditions" id="join-conditions">
+          <!-- 자바스크립트로 동적 생성됨 -->
+        </div>
       </div>
     </div>
 
     <!-- 필터 조건 영역 -->
     <div class="analysis-panel filter-conditions-panel">
-      <h2>필터 조건 설정</h2>
-      <div class="filter-placeholder">테이블을 선택하면 필터 옵션이 표시됩니다.</div>
-      <div class="filter-conditions" id="filter-conditions">
-        <!-- 자바스크립트로 동적 생성됨 -->
+      <div class="panel-header" data-target="filter-conditions-content">
+        <h2>필터 조건 설정</h2>
+        <svg class="panel-toggle" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </div>
-      <button id="add-filter-btn" class="add-button" disabled>필터 추가</button>
+      <div id="filter-conditions-content" class="panel-content">
+        <div class="filter-placeholder">테이블을 선택하면 필터 옵션이 표시됩니다.</div>
+        <div class="filter-conditions" id="filter-conditions">
+          <!-- 자바스크립트로 동적 생성됨 -->
+        </div>
+        <button id="add-filter-btn" class="add-button" disabled>필터 추가</button>
+      </div>
     </div>
 
     <!-- 분석 옵션 영역 -->
     <div class="analysis-panel analysis-options-panel">
-      <h2>분석 옵션</h2>
-      <div class="analysis-type-selector">
-        <div class="analysis-type">
-          <input type="radio" id="analysis-type-summary" name="analysis-type" value="summary" checked>
-          <label for="analysis-type-summary">요약 통계</label>
-        </div>
-        <div class="analysis-type">
-          <input type="radio" id="analysis-type-trend" name="analysis-type" value="trend">
-          <label for="analysis-type-trend">추세 분석</label>
-        </div>
-        <div class="analysis-type">
-          <input type="radio" id="analysis-type-correlation" name="analysis-type" value="correlation">
-          <label for="analysis-type-correlation">상관관계 분석</label>
-        </div>
+      <div class="panel-header" data-target="analysis-options-content">
+        <h2>분석 옵션</h2>
+        <svg class="panel-toggle" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
       </div>
+      <div id="analysis-options-content" class="panel-content">
+        <div class="analysis-type-selector">
+          <div class="analysis-type">
+            <input type="radio" id="analysis-type-summary" name="analysis-type" value="summary" checked>
+            <label for="analysis-type-summary">요약 통계</label>
+          </div>
+          <div class="analysis-type">
+            <input type="radio" id="analysis-type-trend" name="analysis-type" value="trend">
+            <label for="analysis-type-trend">추세 분석</label>
+          </div>
+          <div class="analysis-type">
+            <input type="radio" id="analysis-type-correlation" name="analysis-type" value="correlation">
+            <label for="analysis-type-correlation">상관관계 분석</label>
+          </div>
+        </div>
 
-      <div class="group-by-selector">
-        <h3>그룹화 기준</h3>
-        <select id="group-by-select" disabled>
-          <option value="">그룹화 없음</option>
-          <!-- 자바스크립트로 동적 생성됨 -->
-        </select>
-      </div>
+        <div class="group-by-selector">
+          <h3>그룹화 기준</h3>
+          <select id="group-by-select" disabled>
+            <option value="">그룹화 없음</option>
+            <!-- 자바스크립트로 동적 생성됨 -->
+          </select>
+        </div>
 
-      <div class="target-column-selector">
-        <h3>분석 대상 컬럼</h3>
-        <select id="target-column-select" disabled>
-          <option value="">컬럼 선택</option>
-          <!-- 자바스크립트로 동적 생성됨 -->
-        </select>
+        <div class="target-column-selector">
+          <h3>분석 대상 컬럼</h3>
+          <select id="target-column-select" disabled>
+            <option value="">컬럼 선택</option>
+            <!-- 자바스크립트로 동적 생성됨 -->
+          </select>
+        </div>
       </div>
     </div>
   </div>
